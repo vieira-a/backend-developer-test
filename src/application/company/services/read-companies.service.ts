@@ -8,6 +8,6 @@ import { CompanyDbRepository } from '../../../infrastructure/access/repositories
 export class ReadCompaniesService implements IReadCompaniesUseCase {
   constructor(private readonly _companyDbRepository: CompanyDbRepository) {}
   async readAll(): Promise<Company[]> {
-    return null;
+    return await this._companyDbRepository.readAll();
   }
 }

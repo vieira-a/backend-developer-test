@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 
+import { DataModule } from '../infrastructure/data/data.module';
+
 @Module({
-  imports: [],
+  imports: [DataModule],
 })
 export class AppModule {}

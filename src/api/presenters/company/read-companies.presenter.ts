@@ -11,6 +11,10 @@ export class CompanyPresenter {
     return await this._companyResponseMapper.readCompaniesResponse(output);
   }
 
+  async readCompanySuccess(output: ReadCompanyOutput) {
+    return await this._companyResponseMapper.readCompanyById(output);
+  }
+
   async readCompaniesNotFound(output: ReadCompanyOutput[]) {
     if (output.length === 0) {
       throw new NotFoundException('Registros não encontrados');

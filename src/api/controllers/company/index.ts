@@ -1,1 +1,1 @@
-export * from './company.controller';
+export * from './read-companies.controller';

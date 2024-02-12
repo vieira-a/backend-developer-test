@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { CompanyController } from '../api/controllers/company';
+import { ReadCompaniesController } from '../api/controllers/company';
 import { CompanyPresenter } from '../api/presenters/company';
 import { CompanyResponseMapper } from '../api/transports/company/mappers';
 import { ReadCompaniesService } from '../application/company/services';
@@ -9,7 +9,7 @@ import { CompanyDbRepository } from '../infrastructure/access/repositories/compa
 import { CompanyModel } from '../infrastructure/access/repositories/company/models';
 
 @Module({
-  controllers: [CompanyController],
+  controllers: [ReadCompaniesController],
   providers: [
     ReadCompaniesService,
     CompanyDbRepository,

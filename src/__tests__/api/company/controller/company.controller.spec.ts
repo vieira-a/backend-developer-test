@@ -57,4 +57,9 @@ describe('LoadAllCustomersController', () => {
       new NotFoundException('Registros não encontrados'),
     );
   });
+
+  it('should return an error if service throws', async () => {
+    jest.spyOn(service, 'readAll').mockRejectedValueOnce(new Error());
+    await expect(controller.readAll()).rejects.toThrow(new Error());
+  });
 });

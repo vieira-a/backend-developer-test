@@ -17,7 +17,7 @@ export class CompanyDbRepository implements IReadCompanyDbUseCase {
     return await this._companyRepository.find();
   }
 
-  async readById(id: string): Promise<ReadCompanyOutput> {
+  async readById(id: string): Promise<ReadCompanyOutput | null> {
     return await this._companyRepository.findOne({ where: { id } });
   }
 }

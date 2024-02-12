@@ -10,7 +10,7 @@ export class ReadCompaniesController {
     private readonly _companyPresenter: CompanyPresenter,
   ) {}
   @Get()
-  async readAll() {
+  async handle() {
     const output = await this._readCompaniesService.readAll();
     await this._companyPresenter.readCompaniesNotFound(output);
     return await this._companyPresenter.readCompaniesSuccess(output);

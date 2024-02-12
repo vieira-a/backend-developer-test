@@ -45,14 +45,14 @@ describe('ReadCompaniesController', () => {
   it('should returns all mapped companies on success', async () => {
     jest.spyOn(service, 'readAll').mockResolvedValue(companiesMock);
     const companiesMappedMock = mapper.readCompaniesResponse(companiesMock);
-    const output = controller.readAll();
+    const output = controller.handle();
 
     expect(output).toEqual(companiesMappedMock);
   });
 
   it('should returns 404 if not found companies', async () => {
     jest.spyOn(service, 'readAll').mockResolvedValue([]);
-    const output = controller.readAll();
+    const output = controller.handle();
 
     expect(output).rejects.toThrow(
       new NotFoundException('Registros não encontrados'),
@@ -61,6 +61,6 @@ describe('ReadCompaniesController', () => {
 
   it('should return an error if service throws', async () => {
     jest.spyOn(service, 'readAll').mockRejectedValueOnce(new Error());
-    await expect(controller.readAll()).rejects.toThrow(new Error());
+    await expect(controller.handle()).rejects.toThrow(new Error());
   });
 });

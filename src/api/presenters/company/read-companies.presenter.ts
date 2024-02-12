@@ -20,4 +20,10 @@ export class CompanyPresenter {
       throw new NotFoundException('Registros não encontrados');
     }
   }
+
+  async readCompanyNotFound(output: ReadCompanyOutput) {
+    if (!output) {
+      throw new NotFoundException('Registro não encontrado');
+    }
+  }
 }

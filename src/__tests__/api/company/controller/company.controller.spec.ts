@@ -47,4 +47,12 @@ describe('LoadAllCustomersController', () => {
 
     expect(output).toEqual(companiesMappedMock);
   });
+
+  it('should returns an empty array if not found companies', async () => {
+    jest.spyOn(service, 'readAll').mockResolvedValue([]);
+    const companiesMappedMock = mapper.readCompaniesResponse([]);
+    const output = controller.readAll();
+
+    expect(output).toEqual(companiesMappedMock);
+  });
 });

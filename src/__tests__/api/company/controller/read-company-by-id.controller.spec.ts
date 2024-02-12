@@ -57,4 +57,17 @@ describe('ReadCompanyByIdController', () => {
       new NotFoundException('Registro não encontrado'),
     );
   });
+
+  it('should returns 404 if uuid is invalid', async () => {
+    jest
+      .spyOn(service, 'readById')
+      .mockImplementationOnce(() =>
+        Promise.reject(new NotFoundException('ID com formato inválido')),
+      );
+    const output = controller.handle('non-existent-uuid');
+
+    expect(output).rejects.toThrow(
+      new NotFoundException('ID com formato inválido'),
+    );
+  });
 });

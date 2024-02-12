@@ -1,3 +1,4 @@
+import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
@@ -48,11 +49,12 @@ describe('LoadAllCustomersController', () => {
     expect(output).toEqual(companiesMappedMock);
   });
 
-  it('should returns an empty array if not found companies', async () => {
+  it('should returns 404 if not found companies', async () => {
     jest.spyOn(service, 'readAll').mockResolvedValue([]);
-    const companiesMappedMock = mapper.readCompaniesResponse([]);
     const output = controller.readAll();
 
-    expect(output).toEqual(companiesMappedMock);
+    expect(output).rejects.toThrow(
+      new NotFoundException('Registros não encontrados'),
+    );
   });
 });

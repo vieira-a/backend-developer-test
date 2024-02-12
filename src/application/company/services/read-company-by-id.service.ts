@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
-import { Company } from '../../../domain/entities';
-import { IReadCompanyByIdUseCase } from '../../../domain/usecases';
+import { Company } from '../../../domain/entities/company';
+import { IReadCompanyByIdUseCase } from '../../../domain/usecases/company';
 import { CompanyDbRepository } from '../../../infrastructure/access/repositories/company';
 
 @Injectable()

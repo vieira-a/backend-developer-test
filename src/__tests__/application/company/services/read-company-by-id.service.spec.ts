@@ -41,4 +41,11 @@ describe('ReadCompanyByIdService', () => {
     const result = await service.readById('non-existent-uuid');
     expect(result).toEqual(null);
   });
+
+  it('should return an error if service throws', async () => {
+    jest.spyOn(service, 'readById').mockRejectedValueOnce(new Error());
+    await expect(service.readById(companiesMock[0].id)).rejects.toThrow(
+      new Error(),
+    );
+  });
 });

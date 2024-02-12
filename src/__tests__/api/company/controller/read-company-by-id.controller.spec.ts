@@ -1,4 +1,7 @@
-import { NotFoundException } from '@nestjs/common';
+import {
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
@@ -68,6 +71,21 @@ describe('ReadCompanyByIdController', () => {
 
     expect(output).rejects.toThrow(
       new NotFoundException('ID com formato inválido'),
+    );
+  });
+
+  it('should return an error if service throws', async () => {
+    jest
+      .spyOn(service, 'readById')
+      .mockRejectedValueOnce(
+        new InternalServerErrorException(
+          'Houve um erro interno ao processar solicitação',
+        ),
+      );
+    await expect(controller.handle(companiesMock[0].id)).rejects.toThrow(
+      new InternalServerErrorException(
+        'Houve um erro interno ao processar solicitação',
+      ),
     );
   });
 });

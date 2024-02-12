@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
-import { Company } from '../../../domain/entities/company';
-import { IReadCompaniesUseCase } from '../../../domain/usecases/read-companies.interface';
-import { CompanyDbRepository } from '../../../infrastructure/access/repositories/company/company-db.repository';
+import { Company } from '../../../domain/entities';
+import { IReadCompaniesUseCase } from '../../../domain/usecases';
+import { CompanyDbRepository } from '../../../infrastructure/access/repositories/company';
 
 @Injectable()
 export class ReadCompaniesService implements IReadCompaniesUseCase {

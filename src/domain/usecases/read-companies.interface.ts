@@ -1,4 +1,4 @@
-import { Company } from '../entities/company';
+import { Company } from '../entities';
 
 export interface IReadCompaniesUseCase {
   readAll: () => Promise<Company[]>;

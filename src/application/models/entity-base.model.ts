@@ -1,3 +1,3 @@
-import { EntityBase } from '../../domain/entities/base';
+import { EntityBase } from '../../domain/entities';
 
 export class EntityBaseModel extends EntityBase {}

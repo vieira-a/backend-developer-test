@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { ReadCompanyOutput } from '../../../../application/company/outputs/read-companies.output';
+import { ReadCompanyOutput } from '../../../../application/company/outputs';
 
 @Injectable()
 export class CompanyResponseMapper {

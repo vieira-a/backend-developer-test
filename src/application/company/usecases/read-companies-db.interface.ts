@@ -1,4 +1,4 @@
-import { ReadCompanyOutput } from '../outputs/read-companies.output';
+import { ReadCompanyOutput } from '../outputs';
 
 export class IReadCompaniesDbUseCase {
   readAll: () => Promise<ReadCompanyOutput[]>;

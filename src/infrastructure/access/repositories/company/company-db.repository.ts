@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { ReadCompanyOutput } from '../../../../application/company/outputs/read-companies.output';
-import { IReadCompaniesDbUseCase } from '../../../../application/company/usecases/read-companies-db.interface';
-import { CompanyModel } from './models/company.model';
+import { ReadCompanyOutput } from '../../../../application/company/outputs';
+import { IReadCompaniesDbUseCase } from '../../../../application/company/usecases';
+import { CompanyModel } from './models';
 
 @Injectable()
 export class CompanyDbRepository implements IReadCompaniesDbUseCase {

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
-import { CompanyResponseMapper } from '../../../api/transports/company/mappers/company-response.mapper';
-import { ReadCompanyOutput } from '../../../application/company/outputs/read-companies.output';
+import { CompanyResponseMapper } from '../../../api/transports/company/mappers';
+import { ReadCompanyOutput } from '../../../application/company/outputs';
 
 @Injectable()
 export class CompanyPresenter {

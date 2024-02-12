@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 
-import { CompanyPresenter } from '../../../api/presenters/company/read-companies.presenter';
-import { ReadCompaniesService } from '../../../application/company/services/read-companies.service';
+import { CompanyPresenter } from '../../../api/presenters/company';
+import { ReadCompaniesService } from '../../../application/company/services';
 
 @Controller('companies')
 export class CompanyController {

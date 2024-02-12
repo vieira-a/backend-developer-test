@@ -41,4 +41,9 @@ describe('ReadCompaniesService', () => {
     const result = await service.readAll();
     expect(result).toEqual([]);
   });
+
+  it('should return an error if service throws', async () => {
+    jest.spyOn(service, 'readAll').mockRejectedValueOnce(new Error());
+    await expect(service.readAll()).rejects.toThrow(new Error());
+  });
 });

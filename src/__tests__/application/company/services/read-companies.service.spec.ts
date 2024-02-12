@@ -30,9 +30,15 @@ describe('ReadCompaniesService', () => {
     jest.clearAllMocks();
   });
 
-  it('should read all companies on success', async () => {
+  it('should return all companies on success', async () => {
     jest.spyOn(service, 'readAll').mockResolvedValue(companiesMock);
     const result = await service.readAll();
     expect(result).toEqual(companiesMock);
+  });
+
+  it('should return an empty array if not found companies', async () => {
+    jest.spyOn(service, 'readAll').mockResolvedValue([]);
+    const result = await service.readAll();
+    expect(result).toEqual([]);
   });
 });

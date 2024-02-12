@@ -48,6 +48,14 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       message = 'Registro duplicado. O recurso já existe.';
     }
 
+    if (
+      exception instanceof QueryFailedError &&
+      exception.message.includes('invalid input syntax for type uuid')
+    ) {
+      httpStatus = HttpStatus.BAD_REQUEST;
+      message = 'ID com formato inválido';
+    }
+
     this.logger.error(
       `${request.method} ${request.originalUrl} ${httpStatus} error: ${message}`,
     );
@@ -58,7 +66,6 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       message,
     };
 
-    // Certifique-se de que httpAdapter.reply está definido antes de chamá-lo
     if (httpAdapter && httpAdapter.reply) {
       httpAdapter.reply(response, responseBody, httpStatus);
     }

@@ -1,1 +1,1 @@
-export * from './read-companies-db.interface';
+export * from './company-db.interface';

@@ -7,4 +7,11 @@ export class CompanyResponseMapper {
   async readCompaniesResponse(output: ReadCompanyOutput[]) {
     return output.map((company) => ({ id: company.id, name: company.name }));
   }
+
+  async readCompanyById(output: ReadCompanyOutput) {
+    return {
+      id: output.id,
+      name: output.name,
+    };
+  }
 }

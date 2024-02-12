@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
+import { companiesMock } from '../../../../__mocks__/company';
 import { ReadCompaniesService } from '../../../../application/company/services/read-companies.service';
 import { CompanyDbRepository } from '../../../../infrastructure/access/repositories/company/company-db.repository';
 import { CompanyModel } from '../../../../infrastructure/access/repositories/company/models/company.model';
@@ -25,24 +26,13 @@ describe('ReadCompaniesService', () => {
     service = moduleRef.get<ReadCompaniesService>(ReadCompaniesService);
   });
 
-  it('should read all companies on success', async () => {
-    const companies = [
-      {
-        id: 'uuid_1',
-        name: 'name_1',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        id: 'uuid_2',
-        name: 'name_2',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    ];
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
-    jest.spyOn(service, 'readAll').mockResolvedValue(companies);
+  it('should read all companies on success', async () => {
+    jest.spyOn(service, 'readAll').mockResolvedValue(companiesMock);
     const result = await service.readAll();
-    expect(result).toEqual(companies);
+    expect(result).toEqual(companiesMock);
   });
 });

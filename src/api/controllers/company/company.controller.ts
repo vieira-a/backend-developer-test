@@ -12,6 +12,7 @@ export class CompanyController {
   @Get()
   async readAll() {
     const output = await this._readCompaniesService.readAll();
+    await this._companyPresenter.readCompaniesNotFound(output);
     return await this._companyPresenter.readCompaniesSuccess(output);
   }
 }

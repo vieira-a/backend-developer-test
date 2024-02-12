@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { CompanyResponseMapper } from '../../../api/transports/company/mappers';
 import { ReadCompanyOutput } from '../../../application/company/outputs';
@@ -9,5 +9,11 @@ export class CompanyPresenter {
 
   async readCompaniesSuccess(output: ReadCompanyOutput[]) {
     return await this._companyResponseMapper.readCompaniesResponse(output);
+  }
+
+  async readCompaniesNotFound(output: ReadCompanyOutput[]) {
+    if (output.length === 0) {
+      throw new NotFoundException('Registros não encontrados');
+    }
   }
 }

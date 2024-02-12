@@ -1,3 +1,4 @@
+import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
@@ -46,5 +47,14 @@ describe('ReadCompanyByIdController', () => {
     const output = controller.handle(companiesMock[0].id);
 
     expect(output).toEqual(companiesMappedMock);
+  });
+
+  it('should returns 404 if not found company by id', async () => {
+    jest.spyOn(service, 'readById').mockResolvedValue(null);
+    const output = controller.handle('non-existent-uuid');
+
+    expect(output).rejects.toThrow(
+      new NotFoundException('Registro não encontrado'),
+    );
   });
 });

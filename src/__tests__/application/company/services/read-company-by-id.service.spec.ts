@@ -6,7 +6,7 @@ import { ReadCompanyByIdService } from '../../../../application/company/services
 import { CompanyDbRepository } from '../../../../infrastructure/access/repositories/company';
 import { CompanyModel } from '../../../../infrastructure/access/repositories/company/models';
 
-describe('ReadCompaniesService', () => {
+describe('ReadCompanyByIdService', () => {
   let service: ReadCompanyByIdService;
 
   beforeAll(async () => {
@@ -34,5 +34,11 @@ describe('ReadCompaniesService', () => {
     jest.spyOn(service, 'readById').mockResolvedValue(companiesMock[0]);
     const result = await service.readById(companiesMock[0].id);
     expect(result).toEqual(companiesMock[0]);
+  });
+
+  it('should return null if not found company by id', async () => {
+    jest.spyOn(service, 'readById').mockResolvedValue(null);
+    const result = await service.readById('non-existent-uuid');
+    expect(result).toEqual(null);
   });
 });

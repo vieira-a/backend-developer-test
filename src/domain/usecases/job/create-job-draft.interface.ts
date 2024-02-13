@@ -1,5 +1,5 @@
 import { Job } from '../../entities/job';
 
-export interface CreateJobDraft {
+export interface ICreateJobDraft {
   create: (data: Job) => Promise<Job>;
 }

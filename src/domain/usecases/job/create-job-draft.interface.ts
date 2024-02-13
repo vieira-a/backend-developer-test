@@ -1,5 +1,5 @@
 import { Job } from '../../entities/job';
 
 export interface ICreateJobDraft {
-  create: (data: Job, companyId: string) => Promise<Job>;
+  create: (data: Job) => Promise<Job>;
 }

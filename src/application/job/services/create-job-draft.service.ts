@@ -11,8 +11,8 @@ export class CreateJobDraftService implements ICreateJobDraft {
     private readonly _jobDbRepository: JobDbRepository,
     private readonly _readCompanyById: ReadCompanyByIdService,
   ) {}
-  async create(data: Job, companyId: string): Promise<Job> {
-    const company = await this._readCompanyById.readById(companyId);
+  async create(data: Job): Promise<Job> {
+    const company = await this._readCompanyById.readById(data.companyId);
     const jobData = {
       ...data,
       companyId: company.id,

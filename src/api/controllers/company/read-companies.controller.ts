@@ -11,7 +11,7 @@ export class ReadCompaniesController {
   ) {}
   @Get()
   async handle() {
-    const output = await this._readCompaniesService.readAll();
+    const output = await this._readCompaniesService.execute();
     await this._companyPresenter.readCompaniesNotFound(output);
     return await this._companyPresenter.readCompaniesSuccess(output);
   }

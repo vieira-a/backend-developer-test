@@ -31,19 +31,19 @@ describe('ReadCompaniesService', () => {
   });
 
   it('should return all companies on success', async () => {
-    jest.spyOn(service, 'readAll').mockResolvedValue(companiesMock);
-    const result = await service.readAll();
+    jest.spyOn(service, 'execute').mockResolvedValue(companiesMock);
+    const result = await service.execute();
     expect(result).toEqual(companiesMock);
   });
 
   it('should return an empty array if not found companies', async () => {
-    jest.spyOn(service, 'readAll').mockResolvedValue([]);
-    const result = await service.readAll();
+    jest.spyOn(service, 'execute').mockResolvedValue([]);
+    const result = await service.execute();
     expect(result).toEqual([]);
   });
 
   it('should return an error if service throws', async () => {
-    jest.spyOn(service, 'readAll').mockRejectedValueOnce(new Error());
-    await expect(service.readAll()).rejects.toThrow(new Error());
+    jest.spyOn(service, 'execute').mockRejectedValueOnce(new Error());
+    await expect(service.execute()).rejects.toThrow(new Error());
   });
 });

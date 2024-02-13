@@ -12,7 +12,7 @@ export class ReadCompanyByIdController {
 
   @Get(':company_id')
   async handle(@Param('company_id') company_id: string) {
-    const output = await this._readCompanyByIdService.readById(company_id);
+    const output = await this._readCompanyByIdService.execute(company_id);
     await this._companyPresenter.readCompanyNotFound(output);
     return await this._companyPresenter.readCompanySuccess(output);
   }

@@ -12,7 +12,7 @@ export class CreateJobDraftService implements ICreateJobDraft {
     private readonly _readCompanyById: ReadCompanyByIdService,
   ) {}
   async execute(data: Job): Promise<Job> {
-    const company = await this._readCompanyById.readById(data.companyId);
+    const company = await this._readCompanyById.execute(data.companyId);
 
     if (!company) {
       throw new NotFoundException(

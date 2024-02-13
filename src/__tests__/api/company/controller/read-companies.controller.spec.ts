@@ -26,7 +26,7 @@ describe('ReadCompaniesController', () => {
         {
           provide: getRepositoryToken(CompanyModel),
           useValue: {
-            readAll: jest.fn(),
+            execute: jest.fn(),
             readById: jest.fn(),
           },
         },
@@ -43,7 +43,7 @@ describe('ReadCompaniesController', () => {
   });
 
   it('should returns all mapped companies on success', async () => {
-    jest.spyOn(service, 'readAll').mockResolvedValue(companiesMock);
+    jest.spyOn(service, 'execute').mockResolvedValue(companiesMock);
     const companiesMappedMock = mapper.readCompaniesResponse(companiesMock);
     const output = controller.handle();
 
@@ -51,7 +51,7 @@ describe('ReadCompaniesController', () => {
   });
 
   it('should returns 404 if not found companies', async () => {
-    jest.spyOn(service, 'readAll').mockResolvedValue([]);
+    jest.spyOn(service, 'execute').mockResolvedValue([]);
     const output = controller.handle();
 
     expect(output).rejects.toThrow(
@@ -60,7 +60,7 @@ describe('ReadCompaniesController', () => {
   });
 
   it('should return an error if service throws', async () => {
-    jest.spyOn(service, 'readAll').mockRejectedValueOnce(new Error());
+    jest.spyOn(service, 'execute').mockRejectedValueOnce(new Error());
     await expect(controller.handle()).rejects.toThrow(new Error());
   });
 });

@@ -29,6 +29,10 @@ describe('CreateJobDraftService', () => {
           useValue: { create: jest.fn() },
         },
         ReadCompanyByIdService,
+        {
+          provide: getRepositoryToken(CompanyModel),
+          useValue: { execute: jest.fn() },
+        },
         CompanyDbRepository,
         {
           provide: getRepositoryToken(CompanyModel),
@@ -61,7 +65,7 @@ describe('CreateJobDraftService', () => {
 
   it('should return 404 if not found company', async () => {
     const notFoundId = '40a5ccb7-850a-4a8c-bdc0-86bbd3ba3388';
-    jest.spyOn(readCompanyByIdService, 'readById').mockResolvedValue(null);
+    jest.spyOn(readCompanyByIdService, 'execute').mockResolvedValue(null);
     jest
       .spyOn(service, 'execute')
       .mockRejectedValueOnce(

@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { ReadCompanyByIdService } from 'src/application/company/services';
-import { JobDbRepository } from 'src/infrastructure/access/repositories/job';
 
+import { ReadCompanyByIdService } from '../../../application/company/services';
 import { Job } from '../../../domain/entities/job';
 import { ICreateJobDraft } from '../../../domain/usecases/job';
+import { JobDbRepository } from '../../../infrastructure/access/repositories/job';
 
 @Injectable()
 export class CreateJobDraftService implements ICreateJobDraft {

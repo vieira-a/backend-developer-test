@@ -46,4 +46,9 @@ describe('CreateJobDraftService', () => {
     const result = await service.create(jobMock);
     expect(result).toEqual(jobMock);
   });
+
+  it('should return an error if service throws', async () => {
+    jest.spyOn(service, 'create').mockRejectedValueOnce(new Error());
+    await expect(service.create(jobMock)).rejects.toThrow(new Error());
+  });
 });

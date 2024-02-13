@@ -71,4 +71,9 @@ describe('CreateJobDraftController', () => {
 
     expect(output).toEqual(jobMappedMock);
   });
+
+  it('should return an error if service throws', async () => {
+    jest.spyOn(service, 'execute').mockRejectedValueOnce(new Error());
+    await expect(controller.handle(jobMock)).rejects.toThrow(new Error());
+  });
 });

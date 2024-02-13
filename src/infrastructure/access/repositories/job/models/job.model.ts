@@ -3,7 +3,7 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  OneToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -16,7 +16,7 @@ export class JobModel extends CreateJobDraftInput {
   @PrimaryGeneratedColumn('uuid')
   public id?: string;
 
-  @OneToMany(() => CompanyModel, (company) => company.jobs)
+  @ManyToOne(() => CompanyModel, (company) => company.jobs)
   @JoinColumn({ name: 'company_id' })
   public companyId: string;
 
@@ -29,7 +29,7 @@ export class JobModel extends CreateJobDraftInput {
   @Column({ name: 'location', type: 'text', nullable: false })
   public location: string;
 
-  @Column({ name: 'title', type: 'text' })
+  @Column({ name: 'notes', type: 'text' })
   public notes: string;
 
   @Column({ name: 'status', nullable: false, default: 'draft' })

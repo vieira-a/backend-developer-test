@@ -63,7 +63,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     const responseBody = {
       statusCode: httpStatus,
       timestamp: new Date().toLocaleTimeString(),
-      message,
+      message: exception.response ? exception.response.message : message,
     };
 
     if (httpAdapter && httpAdapter.reply) {

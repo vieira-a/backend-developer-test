@@ -2,7 +2,7 @@ import { JobStatus } from '../../enums';
 import { EntityBase } from '../entity.base';
 
 export class Job extends EntityBase {
-  public companyId: number;
+  public companyId: string;
 
   public title: string;
 

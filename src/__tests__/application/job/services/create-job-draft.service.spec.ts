@@ -1,3 +1,4 @@
+import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
@@ -11,30 +12,36 @@ import { JobModel } from '../../../../infrastructure/access/repositories/job/mod
 
 describe('CreateJobDraftService', () => {
   let service: CreateJobDraftService;
+  let repository: JobDbRepository;
+  let readCompanyByIdService: ReadCompanyByIdService;
 
   beforeAll(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       providers: [
         CreateJobDraftService,
+        {
+          provide: getRepositoryToken(JobModel),
+          useValue: { execute: jest.fn() },
+        },
         JobDbRepository,
+        {
+          provide: getRepositoryToken(JobModel),
+          useValue: { create: jest.fn() },
+        },
         ReadCompanyByIdService,
         CompanyDbRepository,
         {
-          provide: getRepositoryToken(JobModel),
-          useValue: {
-            create: jest.fn(),
-          },
-        },
-        {
           provide: getRepositoryToken(CompanyModel),
-          useValue: {
-            readById: jest.fn(),
-          },
+          useValue: { readById: jest.fn() },
         },
       ],
     }).compile();
 
     service = moduleRef.get<CreateJobDraftService>(CreateJobDraftService);
+    repository = moduleRef.get<JobDbRepository>(JobDbRepository);
+    readCompanyByIdService = moduleRef.get<ReadCompanyByIdService>(
+      ReadCompanyByIdService,
+    );
   });
 
   afterEach(() => {
@@ -42,13 +49,27 @@ describe('CreateJobDraftService', () => {
   });
 
   it('should create a job draft on success', async () => {
-    jest.spyOn(service, 'create').mockResolvedValue(jobMock);
-    const result = await service.create(jobMock);
+    jest.spyOn(service, 'execute').mockResolvedValue(jobMock);
+    const result = await service.execute(jobMock);
     expect(result).toEqual(jobMock);
   });
 
   it('should return an error if service throws', async () => {
-    jest.spyOn(service, 'create').mockRejectedValueOnce(new Error());
-    await expect(service.create(jobMock)).rejects.toThrow(new Error());
+    jest.spyOn(service, 'execute').mockRejectedValueOnce(new Error());
+    await expect(service.execute(jobMock)).rejects.toThrow(new Error());
+  });
+
+  it('should return 404 if not found company', async () => {
+    const notFoundId = '40a5ccb7-850a-4a8c-bdc0-86bbd3ba3388';
+    jest.spyOn(readCompanyByIdService, 'readById').mockResolvedValue(null);
+    jest
+      .spyOn(service, 'execute')
+      .mockRejectedValueOnce(
+        new NotFoundException(`Empresa com ID ${notFoundId} não encontrada`),
+      );
+    expect(repository.create).not.toHaveBeenCalled;
+    await expect(service.execute).rejects.toThrow(
+      new NotFoundException(`Empresa com ID ${notFoundId} não encontrada`),
+    );
   });
 });

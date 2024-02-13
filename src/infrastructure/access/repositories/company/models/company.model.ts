@@ -8,7 +8,7 @@ export class CompanyModel extends BaseModel {
   @Column({ name: 'name', nullable: false, unique: true })
   public name: string;
 
-  @OneToMany(() => JobModel, (job) => job.company)
+  @OneToMany(() => JobModel, (job) => job.companyId)
   public jobs: JobModel[];
 
   protected constructor() {

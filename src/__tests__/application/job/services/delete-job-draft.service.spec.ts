@@ -72,4 +72,10 @@ describe('DeleteJobDraftService', () => {
     const result = await service.delete(jobMock.id);
     expect(result).toBe(false);
   });
+
+  it('should return an error if service throws', async () => {
+    const jobId = 'd9b8203c-e87e-4366-b162-66bf0cecb429';
+    jest.spyOn(service, 'delete').mockRejectedValueOnce(new Error());
+    await expect(service.delete(jobId)).rejects.toThrow(new Error());
+  });
 });

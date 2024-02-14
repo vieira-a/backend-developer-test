@@ -7,7 +7,7 @@ import { CompanyDbRepository } from '../../../infrastructure/access/repositories
 @Injectable()
 export class ReadCompaniesService implements IReadCompaniesUseCase {
   constructor(private readonly _companyDbRepository: CompanyDbRepository) {}
-  async readAll(): Promise<Company[]> {
+  async execute(): Promise<Company[]> {
     return await this._companyDbRepository.readAll();
   }
 }

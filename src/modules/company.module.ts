@@ -24,5 +24,6 @@ import { CompanyModel } from '../infrastructure/access/repositories/company/mode
     CompanyResponseMapper,
   ],
   imports: [TypeOrmModule.forFeature([CompanyModel])],
+  exports: [ReadCompanyByIdService, CompanyDbRepository],
 })
 export class CompanyModule {}

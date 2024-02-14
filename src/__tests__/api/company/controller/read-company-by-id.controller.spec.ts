@@ -45,7 +45,7 @@ describe('ReadCompanyByIdController', () => {
   });
 
   it('should returns a company by id on success', async () => {
-    jest.spyOn(service, 'readById').mockResolvedValue(companiesMock[0]);
+    jest.spyOn(service, 'execute').mockResolvedValue(companiesMock[0]);
     const companiesMappedMock = mapper.readCompanyById(companiesMock[0]);
     const output = controller.handle(companiesMock[0].id);
 
@@ -53,7 +53,7 @@ describe('ReadCompanyByIdController', () => {
   });
 
   it('should returns 404 if not found company by id', async () => {
-    jest.spyOn(service, 'readById').mockResolvedValue(null);
+    jest.spyOn(service, 'execute').mockResolvedValue(null);
     const output = controller.handle('non-existent-uuid');
 
     expect(output).rejects.toThrow(
@@ -63,7 +63,7 @@ describe('ReadCompanyByIdController', () => {
 
   it('should returns 404 if uuid is invalid', async () => {
     jest
-      .spyOn(service, 'readById')
+      .spyOn(service, 'execute')
       .mockImplementationOnce(() =>
         Promise.reject(new NotFoundException('ID com formato inválido')),
       );
@@ -76,7 +76,7 @@ describe('ReadCompanyByIdController', () => {
 
   it('should return an error if service throws', async () => {
     jest
-      .spyOn(service, 'readById')
+      .spyOn(service, 'execute')
       .mockRejectedValueOnce(
         new InternalServerErrorException(
           'Houve um erro interno ao processar solicitação',

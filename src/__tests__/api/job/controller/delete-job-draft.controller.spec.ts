@@ -73,4 +73,15 @@ describe('UpdateJobDraftController', () => {
 
     expect(output).toEqual({ message: 'Registro excluído com sucesso' });
   });
+
+  it('should delete a job unsuccessfully', async () => {
+    jest.spyOn(service, 'delete').mockResolvedValue(false);
+    const output = await controller.handle(jobMock.id);
+
+    jest
+      .spyOn(presenter, 'deletedDraftNotSuccess')
+      .mockResolvedValue({ message: 'Registro não excluído' });
+
+    expect(output).toEqual({ message: 'Registro não excluído' });
+  });
 });

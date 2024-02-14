@@ -21,4 +21,8 @@ export class JobPresenter {
   async deletedDraftSuccess() {
     return { message: 'Registro excluído com sucesso' };
   }
+
+  async deletedDraftNotSuccess() {
+    return { message: 'Registro não excluído' };
+  }
 }

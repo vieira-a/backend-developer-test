@@ -12,7 +12,11 @@ export class DeleteJobDraftController {
 
   @Delete(':job_id')
   async handle(@Param('job_id') job_id: string) {
-    await this._deleteJobDraftService.delete(job_id);
+    const output = await this._deleteJobDraftService.delete(job_id);
+
+    if (!output) {
+      return await this._jobPresenter.deletedDraftNotSuccess();
+    }
 
     return await this._jobPresenter.deletedDraftSuccess();
   }

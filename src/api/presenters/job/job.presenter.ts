@@ -9,4 +9,12 @@ export class JobPresenter {
   async createDraftSuccess(output: CreateJobDraftOutput) {
     return await this._jobResponseMapper.jobDraftResponse(output);
   }
+
+  async updatedDraftSuccess() {
+    return { message: 'Registro atualizado com sucesso' };
+  }
+
+  async updatedDraftNotSuccess() {
+    return { message: 'Sem dados para atualizar' };
+  }
 }

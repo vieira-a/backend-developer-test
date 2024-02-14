@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsOptional, IsUUID } from 'class-validator';
 
-import { CreateJobDraftInput } from '../../../application/job/inputs';
+import { CreateJobDraftInput } from '../../../../application/job/inputs';
 
 export class CreateJobDraftRequest implements CreateJobDraftInput {
   @IsNotEmpty({ message: 'Empresa obrigatória' })

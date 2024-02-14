@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
 
 import {
+  ArchiveJobDraftInput,
   CreateJobDraftInput,
   UpdateJobDraftInput,
 } from '../../../../application/job/inputs';
@@ -25,8 +26,7 @@ export class JobDbRepository implements IJobDraftDbUseCase {
   }
 
   async update(id: string, data: UpdateJobDraftInput): Promise<boolean> {
-    const job = await this._jobRepository.findOne({ where: { id } });
-    return !!this._jobRepository.update({ id: job.id }, { ...data });
+    return !!this._jobRepository.update({ id }, { ...data });
   }
 
   async readById(id: string): Promise<ReadDraftByIdOutput> {
@@ -39,5 +39,15 @@ export class JobDbRepository implements IJobDraftDbUseCase {
       return false;
     }
     return true;
+  }
+
+  async archive(
+    id: string,
+    archiveStatus?: ArchiveJobDraftInput,
+  ): Promise<boolean> {
+    return !!(await this._jobRepository.update(
+      { id },
+      { status: archiveStatus.status },
+    ));
   }
 }

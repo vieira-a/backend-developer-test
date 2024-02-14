@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import {
+  ArchiveJobDraftController,
   CreateJobDraftController,
   DeleteJobDraftController,
   UpdateJobDraftController,
@@ -9,6 +10,7 @@ import {
 import { JobPresenter } from '../api/presenters/job';
 import { JobResponseMapper } from '../api/transports/job/mapper';
 import {
+  ArchiveJobDraftService,
   CreateJobDraftService,
   DeleteJobDraftService,
   ReadJobDraftByIdService,
@@ -24,12 +26,14 @@ import { CompanyModule } from './company.module';
     CreateJobDraftController,
     UpdateJobDraftController,
     DeleteJobDraftController,
+    ArchiveJobDraftController,
   ],
   providers: [
     CreateJobDraftService,
     ReadJobDraftByIdService,
     UpdateJobDraftService,
     DeleteJobDraftService,
+    ArchiveJobDraftService,
     JobDbRepository,
     JobPresenter,
     JobResponseMapper,

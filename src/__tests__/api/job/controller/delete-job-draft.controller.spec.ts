@@ -2,34 +2,41 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { jobMock } from '../../../../__mocks__/job';
-import { CreateJobDraftController } from '../../../../api/controllers/job';
+import { DeleteJobDraftController } from '../../../../api/controllers/job';
 import { CompanyPresenter } from '../../../../api/presenters/company';
 import { JobPresenter } from '../../../../api/presenters/job';
 import { CompanyResponseMapper } from '../../../../api/transports/company/mappers';
 import { JobResponseMapper } from '../../../../api/transports/job/mapper';
 import { ReadCompanyByIdService } from '../../../../application/company/services';
-import { CreateJobDraftService } from '../../../../application/job/services';
+import {
+  DeleteJobDraftService,
+  ReadJobDraftByIdService,
+} from '../../../../application/job/services';
 import { CompanyDbRepository } from '../../../../infrastructure/access/repositories/company';
 import { CompanyModel } from '../../../../infrastructure/access/repositories/company/models';
 import { JobDbRepository } from '../../../../infrastructure/access/repositories/job';
 import { JobModel } from '../../../../infrastructure/access/repositories/job/models';
 
-describe('CreateJobDraftController', () => {
-  let controller: CreateJobDraftController;
-  let service: CreateJobDraftService;
-  let repository: JobDbRepository;
-  let mapper: JobResponseMapper;
+describe('UpdateJobDraftController', () => {
+  let controller: DeleteJobDraftController;
+  let service: DeleteJobDraftService;
+  let presenter: JobPresenter;
 
   beforeAll(async () => {
     const app: TestingModule = await Test.createTestingModule({
-      controllers: [CreateJobDraftController],
+      controllers: [DeleteJobDraftController],
       providers: [
-        JobPresenter,
         JobResponseMapper,
-        CreateJobDraftService,
+        ReadJobDraftByIdService,
+        DeleteJobDraftService,
         {
           provide: getRepositoryToken(JobModel),
           useValue: { execute: jest.fn() },
+        },
+        JobPresenter,
+        {
+          provide: getRepositoryToken(JobModel),
+          useValue: { updatedDraftSuccess: jest.fn() },
         },
         JobDbRepository,
         {
@@ -47,33 +54,34 @@ describe('CreateJobDraftController', () => {
       ],
     }).compile();
 
-    service = app.get<CreateJobDraftService>(CreateJobDraftService);
-    controller = app.get<CreateJobDraftController>(CreateJobDraftController);
-    repository = app.get<JobDbRepository>(JobDbRepository);
-    mapper = app.get<JobResponseMapper>(JobResponseMapper);
+    service = app.get<DeleteJobDraftService>(DeleteJobDraftService);
+    controller = app.get<DeleteJobDraftController>(DeleteJobDraftController);
+    presenter = app.get<JobPresenter>(JobPresenter);
   });
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should load module dependencies', () => {
-    expect(service).toBeDefined();
-    expect(controller).toBeDefined();
-    expect(mapper).toBeDefined();
-    expect(repository).toBeDefined();
+  it('should delete a job successfully', async () => {
+    jest.spyOn(service, 'delete').mockResolvedValue(true);
+    const output = await controller.handle(jobMock.id);
+
+    jest
+      .spyOn(presenter, 'deletedDraftSuccess')
+      .mockResolvedValue({ message: 'Registro excluído com sucesso' });
+
+    expect(output).toEqual({ message: 'Registro excluído com sucesso' });
   });
 
-  it('should create a job draft with correct values', async () => {
-    jest.spyOn(service, 'create').mockResolvedValue(jobMock);
-    const jobMappedMock = mapper.jobDraftResponse(jobMock);
-    const output = controller.handle(jobMock);
+  it('should delete a job unsuccessfully', async () => {
+    jest.spyOn(service, 'delete').mockResolvedValue(false);
+    const output = await controller.handle(jobMock.id);
 
-    expect(output).toEqual(jobMappedMock);
-  });
+    jest
+      .spyOn(presenter, 'deletedDraftNotSuccess')
+      .mockResolvedValue({ message: 'Registro não excluído' });
 
-  it('should return an error if service throws', async () => {
-    jest.spyOn(service, 'create').mockRejectedValueOnce(new Error());
-    await expect(controller.handle(jobMock)).rejects.toThrow(new Error());
+    expect(output).toEqual({ message: 'Registro não excluído' });
   });
 });

@@ -57,9 +57,9 @@ describe('UpdateJobDraftService', () => {
 
   it('should update a job title on success', async () => {
     jest.spyOn(repository, 'update').mockResolvedValue(true);
-    jest.spyOn(service, 'execute').mockResolvedValue(true);
+    jest.spyOn(service, 'update').mockResolvedValue(true);
 
-    const result = await service.execute(jobMock.id, {
+    const result = await service.update(jobMock.id, {
       ...jobMock,
       title: 'Updated title',
     });
@@ -68,9 +68,9 @@ describe('UpdateJobDraftService', () => {
 
   it('should update a job description on success', async () => {
     jest.spyOn(repository, 'update').mockResolvedValue(true);
-    jest.spyOn(service, 'execute').mockResolvedValue(true);
+    jest.spyOn(service, 'update').mockResolvedValue(true);
 
-    const result = await service.execute(jobMock.id, {
+    const result = await service.update(jobMock.id, {
       ...jobMock,
       description: 'Updated description',
     });
@@ -79,9 +79,9 @@ describe('UpdateJobDraftService', () => {
 
   it('should update a job location on success', async () => {
     jest.spyOn(repository, 'update').mockResolvedValue(true);
-    jest.spyOn(service, 'execute').mockResolvedValue(true);
+    jest.spyOn(service, 'update').mockResolvedValue(true);
 
-    const result = await service.execute(jobMock.id, {
+    const result = await service.update(jobMock.id, {
       ...jobMock,
       location: 'Updated location',
     });
@@ -89,10 +89,10 @@ describe('UpdateJobDraftService', () => {
   });
 
   it('should return false if not found job by id', async () => {
-    jest.spyOn(readJobDraftByIdService, 'execute').mockResolvedValue(null);
-    jest.spyOn(service, 'execute').mockResolvedValue(false);
+    jest.spyOn(readJobDraftByIdService, 'readById').mockResolvedValue(null);
+    jest.spyOn(service, 'update').mockResolvedValue(false);
 
-    const result = await service.execute(jobMock.id, {
+    const result = await service.update(jobMock.id, {
       ...jobMock,
       location: 'Updated location',
     });
@@ -100,9 +100,9 @@ describe('UpdateJobDraftService', () => {
   });
 
   it('should return an error if service throws', async () => {
-    jest.spyOn(service, 'execute').mockRejectedValueOnce(new Error());
+    jest.spyOn(service, 'update').mockRejectedValueOnce(new Error());
     await expect(
-      service.execute(jobMock.id, {
+      service.update(jobMock.id, {
         ...jobMock,
         location: 'Updated location',
       }),

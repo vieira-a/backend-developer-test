@@ -3,12 +3,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import {
   CreateJobDraftController,
+  DeleteJobDraftController,
   UpdateJobDraftController,
 } from '../api/controllers/job';
 import { JobPresenter } from '../api/presenters/job';
 import { JobResponseMapper } from '../api/transports/job/mapper';
 import {
   CreateJobDraftService,
+  DeleteJobDraftService,
   ReadJobDraftByIdService,
   UpdateJobDraftService,
 } from '../application/job/services';
@@ -18,11 +20,16 @@ import { CompanyModule } from './company.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([JobModel]), CompanyModule],
-  controllers: [CreateJobDraftController, UpdateJobDraftController],
+  controllers: [
+    CreateJobDraftController,
+    UpdateJobDraftController,
+    DeleteJobDraftController,
+  ],
   providers: [
     CreateJobDraftService,
     ReadJobDraftByIdService,
     UpdateJobDraftService,
+    DeleteJobDraftService,
     JobDbRepository,
     JobPresenter,
     JobResponseMapper,

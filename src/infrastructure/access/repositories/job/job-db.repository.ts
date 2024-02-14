@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 
 import {
   CreateJobDraftInput,
@@ -31,5 +31,13 @@ export class JobDbRepository implements IJobDraftDbUseCase {
 
   async readById(id: string): Promise<ReadDraftByIdOutput> {
     return await this._jobRepository.findOne({ where: { id } });
+  }
+
+  async delete(id: string): Promise<boolean> {
+    const deleteResult: DeleteResult = await this._jobRepository.delete({ id });
+    if (deleteResult.affected === 0) {
+      return false;
+    }
+    return true;
   }
 }

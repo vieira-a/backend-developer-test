@@ -25,4 +25,12 @@ export class JobPresenter {
   async deletedDraftNotSuccess() {
     return { message: 'Registro não excluído' };
   }
+
+  async archiveDraftSuccess() {
+    return { message: 'Postagem arquivada com sucesso' };
+  }
+
+  async archiveDraftNotSuccess() {
+    return { message: 'Postagem não arquivada' };
+  }
 }

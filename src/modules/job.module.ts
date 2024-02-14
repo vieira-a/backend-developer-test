@@ -9,6 +9,7 @@ import { JobPresenter } from '../api/presenters/job';
 import { JobResponseMapper } from '../api/transports/job/mapper';
 import {
   CreateJobDraftService,
+  ReadJobDraftByIdService,
   UpdateJobDraftService,
 } from '../application/job/services';
 import { JobDbRepository } from '../infrastructure/access/repositories/job';
@@ -20,6 +21,7 @@ import { CompanyModule } from './company.module';
   controllers: [CreateJobDraftController, UpdateJobDraftController],
   providers: [
     CreateJobDraftService,
+    ReadJobDraftByIdService,
     UpdateJobDraftService,
     JobDbRepository,
     JobPresenter,

@@ -65,7 +65,7 @@ describe('CreateJobDraftController', () => {
   });
 
   it('should create a job draft with correct values', async () => {
-    jest.spyOn(service, 'execute').mockResolvedValue(jobMock);
+    jest.spyOn(service, 'create').mockResolvedValue(jobMock);
     const jobMappedMock = mapper.jobDraftResponse(jobMock);
     const output = controller.handle(jobMock);
 
@@ -73,7 +73,7 @@ describe('CreateJobDraftController', () => {
   });
 
   it('should return an error if service throws', async () => {
-    jest.spyOn(service, 'execute').mockRejectedValueOnce(new Error());
+    jest.spyOn(service, 'create').mockRejectedValueOnce(new Error());
     await expect(controller.handle(jobMock)).rejects.toThrow(new Error());
   });
 });

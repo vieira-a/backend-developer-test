@@ -64,7 +64,7 @@ describe('UpdateJobDraftController', () => {
   });
 
   it('should update a job draft title successfully', async () => {
-    jest.spyOn(service, 'execute').mockResolvedValue(true);
+    jest.spyOn(service, 'update').mockResolvedValue(true);
     const output = await controller.handle(jobMock.id, {
       ...jobMock,
       title: 'Upated title',
@@ -78,7 +78,7 @@ describe('UpdateJobDraftController', () => {
   });
 
   it('should update a job draft description successfully', async () => {
-    jest.spyOn(service, 'execute').mockResolvedValue(true);
+    jest.spyOn(service, 'update').mockResolvedValue(true);
     const output = await controller.handle(jobMock.id, {
       ...jobMock,
       description: 'Upated description',
@@ -92,7 +92,7 @@ describe('UpdateJobDraftController', () => {
   });
 
   it('should update a job draft location successfully', async () => {
-    jest.spyOn(service, 'execute').mockResolvedValue(true);
+    jest.spyOn(service, 'update').mockResolvedValue(true);
     const output = await controller.handle(jobMock.id, {
       ...jobMock,
       location: 'Upated location',
@@ -106,7 +106,7 @@ describe('UpdateJobDraftController', () => {
   });
 
   it('should not update a job draft with the same data', async () => {
-    jest.spyOn(service, 'execute').mockResolvedValue(false);
+    jest.spyOn(service, 'update').mockResolvedValue(false);
     const output = await controller.handle(jobMock.id, {
       ...jobMock,
       location: 'Same location',

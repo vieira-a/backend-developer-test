@@ -16,7 +16,7 @@ export class UpdateJobDraftController {
     @Param('job_id') job_id: string,
     @Body() data: UpdateJobDraftRequest,
   ) {
-    const output = await this._updateJobDraftService.execute(job_id, data);
+    const output = await this._updateJobDraftService.update(job_id, data);
 
     if (!output) {
       return await this._jobPresenter.updatedDraftNotSuccess();

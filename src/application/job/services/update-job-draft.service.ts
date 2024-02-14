@@ -11,8 +11,8 @@ export class UpdateJobDraftService implements IUpdateJobDraft {
     private readonly _jobDbRepository: JobDbRepository,
     private readonly _readJobDraftByIdService: ReadJobDraftByIdService,
   ) {}
-  async execute(id: string, data: UpdateJob): Promise<boolean> {
-    const job = await this._readJobDraftByIdService.execute(id);
+  async update(id: string, data: UpdateJob): Promise<boolean> {
+    const job = await this._readJobDraftByIdService.readById(id);
 
     if (!job) {
       throw new NotFoundException(`Job com ID ${id} não localizado`);

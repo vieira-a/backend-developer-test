@@ -13,7 +13,7 @@ export class CreateJobDraftController {
 
   @Post()
   async handle(@Body() data: CreateJobDraftRequest) {
-    const output = await this._createJobDraftService.execute(data);
+    const output = await this._createJobDraftService.create(data);
     return await this._jobPresenter.createDraftSuccess(output);
   }
 }

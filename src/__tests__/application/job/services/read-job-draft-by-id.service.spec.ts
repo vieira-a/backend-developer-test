@@ -59,4 +59,10 @@ describe('ReadJobDraftByIdService', () => {
     jest.spyOn(repository, 'readById').mockResolvedValue(null);
     expect(await service.execute(notFoundId)).toEqual(null);
   });
+
+  it('should return an error if service throws', async () => {
+    const jobId = 'd9b8203c-e87e-4366-b162-66bf0cecb429';
+    jest.spyOn(service, 'execute').mockRejectedValueOnce(new Error());
+    await expect(service.execute(jobId)).rejects.toThrow(new Error());
+  });
 });

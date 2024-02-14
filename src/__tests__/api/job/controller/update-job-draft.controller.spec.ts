@@ -90,4 +90,18 @@ describe('UpdateJobDraftController', () => {
 
     expect(output).toEqual({ message: 'Registro atualizado com sucesso' });
   });
+
+  it('should update a job draft location successfully', async () => {
+    jest.spyOn(service, 'execute').mockResolvedValue(true);
+    const output = await controller.handle(jobMock.id, {
+      ...jobMock,
+      location: 'Upated location',
+    });
+
+    jest
+      .spyOn(presenter, 'updatedDraftSuccess')
+      .mockResolvedValue({ message: 'Registro atualizado com sucesso' });
+
+    expect(output).toEqual({ message: 'Registro atualizado com sucesso' });
+  });
 });

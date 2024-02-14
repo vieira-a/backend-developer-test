@@ -63,4 +63,13 @@ describe('DeleteJobDraftService', () => {
     const result = await service.delete(jobMock.id);
     expect(result).toBe(true);
   });
+
+  it('ensure delete uncessfully if not found job draft', async () => {
+    jest.spyOn(readJobDraftByIdService, 'readById').mockResolvedValue(null);
+    jest.spyOn(repository, 'update').mockResolvedValue(false);
+    jest.spyOn(service, 'delete').mockResolvedValue(false);
+
+    const result = await service.delete(jobMock.id);
+    expect(result).toBe(false);
+  });
 });

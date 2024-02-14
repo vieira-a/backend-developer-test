@@ -53,4 +53,10 @@ describe('ReadJobDraftByIdService', () => {
     const result = await service.execute(jobId);
     expect(result).toEqual(jobMock);
   });
+
+  it('should return null if not found a job by id', async () => {
+    const notFoundId = '4499a351-1861-49bb-9189-40fff3d1398c';
+    jest.spyOn(repository, 'readById').mockResolvedValue(null);
+    expect(await service.execute(notFoundId)).toEqual(null);
+  });
 });

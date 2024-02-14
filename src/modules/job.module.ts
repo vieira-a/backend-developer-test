@@ -1,19 +1,26 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { CreateJobDraftController } from '../api/controllers/job/create-job-draft.controller';
+import {
+  CreateJobDraftController,
+  UpdateJobDraftController,
+} from '../api/controllers/job';
 import { JobPresenter } from '../api/presenters/job';
 import { JobResponseMapper } from '../api/transports/job/mapper';
-import { CreateJobDraftService } from '../application/job/services';
+import {
+  CreateJobDraftService,
+  UpdateJobDraftService,
+} from '../application/job/services';
 import { JobDbRepository } from '../infrastructure/access/repositories/job';
 import { JobModel } from '../infrastructure/access/repositories/job/models';
 import { CompanyModule } from './company.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([JobModel]), CompanyModule],
-  controllers: [CreateJobDraftController],
+  controllers: [CreateJobDraftController, UpdateJobDraftController],
   providers: [
     CreateJobDraftService,
+    UpdateJobDraftService,
     JobDbRepository,
     JobPresenter,
     JobResponseMapper,

@@ -17,4 +17,8 @@ export class JobPresenter {
   async updatedDraftNotSuccess() {
     return { message: 'Sem dados para atualizar' };
   }
+
+  async deletedDraftSuccess() {
+    return { message: 'Registro excluído com sucesso' };
+  }
 }

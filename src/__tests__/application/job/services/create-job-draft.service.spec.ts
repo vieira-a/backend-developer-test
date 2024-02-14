@@ -19,10 +19,6 @@ describe('CreateJobDraftService', () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       providers: [
         CreateJobDraftService,
-        {
-          provide: getRepositoryToken(JobModel),
-          useValue: { execute: jest.fn() },
-        },
         JobDbRepository,
         {
           provide: getRepositoryToken(JobModel),

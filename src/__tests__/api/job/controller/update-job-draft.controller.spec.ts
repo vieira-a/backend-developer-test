@@ -104,4 +104,18 @@ describe('UpdateJobDraftController', () => {
 
     expect(output).toEqual({ message: 'Registro atualizado com sucesso' });
   });
+
+  it('should not update a job draft with the same data', async () => {
+    jest.spyOn(service, 'execute').mockResolvedValue(false);
+    const output = await controller.handle(jobMock.id, {
+      ...jobMock,
+      location: 'Same location',
+    });
+
+    jest
+      .spyOn(presenter, 'updatedDraftNotSuccess')
+      .mockResolvedValue({ message: 'Sem dados para atualizar' });
+
+    expect(output).toEqual({ message: 'Sem dados para atualizar' });
+  });
 });

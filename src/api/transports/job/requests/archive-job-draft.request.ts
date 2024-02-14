@@ -1,10 +1,10 @@
 import { ArchiveJobDraftInput } from '../../../../application/job/inputs';
 import { JobStatus } from '../../../../domain/enums';
 
-export class UpdateJobDraftStatus extends ArchiveJobDraftInput {
+export class ArchiveJobDraftRequest extends ArchiveJobDraftInput {
   public status: JobStatus;
 
-  archive() {
+  setArchiveStatus() {
     this.status = JobStatus.ARCHIVED;
     return this;
   }

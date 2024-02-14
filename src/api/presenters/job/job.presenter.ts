@@ -11,10 +11,10 @@ export class JobPresenter {
   }
 
   async updatedDraftSuccess() {
-    return 'Registro atualizado com sucesso';
+    return { message: 'Registro atualizado com sucesso' };
   }
 
   async updatedDraftNotSuccess() {
-    return 'Sem dados para atualizar';
+    return { message: 'Sem dados para atualizar' };
   }
 }

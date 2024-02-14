@@ -61,4 +61,11 @@ describe('ArchiveJobDraftService', () => {
     const result = await service.archive(jobMock.id, archiveStatus);
     expect(result).toBe(false);
   });
+
+  it('should return an error if service throws', async () => {
+    jest.spyOn(service, 'archive').mockRejectedValueOnce(new Error());
+    expect(service.archive(jobMock.id, archiveStatus)).rejects.toThrow(
+      new Error(),
+    );
+  });
 });

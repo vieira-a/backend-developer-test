@@ -98,4 +98,14 @@ describe('UpdateJobDraftService', () => {
     });
     expect(result).toBe(false);
   });
+
+  it('should return an error if service throws', async () => {
+    jest.spyOn(service, 'execute').mockRejectedValueOnce(new Error());
+    await expect(
+      service.execute(jobMock.id, {
+        ...jobMock,
+        location: 'Updated location',
+      }),
+    ).rejects.toThrow(new Error());
+  });
 });

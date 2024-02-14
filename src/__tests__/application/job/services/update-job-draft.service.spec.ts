@@ -72,4 +72,15 @@ describe('UpdateJobDraftService', () => {
     });
     expect(result).toBe(true);
   });
+
+  it('should update a job location on success', async () => {
+    jest.spyOn(repository, 'update').mockResolvedValue(true);
+    jest.spyOn(service, 'execute').mockResolvedValue(true);
+
+    const result = await service.execute(jobMock.id, {
+      ...jobMock,
+      location: 'Updated location',
+    });
+    expect(result).toBe(true);
+  });
 });

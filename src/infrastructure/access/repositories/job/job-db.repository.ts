@@ -43,7 +43,7 @@ export class JobDbRepository implements IJobDraftDbUseCase {
 
   async archive(
     id: string,
-    archiveStatus?: ArchiveJobDraftInput,
+    archiveStatus: ArchiveJobDraftInput,
   ): Promise<boolean> {
     return !!(await this._jobRepository.update(
       { id },

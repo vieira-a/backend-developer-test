@@ -15,6 +15,7 @@ import { JobModel } from '../../../../infrastructure/access/repositories/job/mod
 describe('UpdateJobDraftService', () => {
   let service: UpdateJobDraftService;
   let repository: JobDbRepository;
+  let readJobDraftByIdService: ReadJobDraftByIdService;
 
   beforeAll(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
@@ -45,6 +46,9 @@ describe('UpdateJobDraftService', () => {
 
     service = moduleRef.get<UpdateJobDraftService>(UpdateJobDraftService);
     repository = moduleRef.get<JobDbRepository>(JobDbRepository);
+    readJobDraftByIdService = moduleRef.get<ReadJobDraftByIdService>(
+      ReadJobDraftByIdService,
+    );
   });
 
   afterEach(() => {
@@ -82,5 +86,16 @@ describe('UpdateJobDraftService', () => {
       location: 'Updated location',
     });
     expect(result).toBe(true);
+  });
+
+  it('should return false if not found job by id', async () => {
+    jest.spyOn(readJobDraftByIdService, 'execute').mockResolvedValue(null);
+    jest.spyOn(service, 'execute').mockResolvedValue(false);
+
+    const result = await service.execute(jobMock.id, {
+      ...jobMock,
+      location: 'Updated location',
+    });
+    expect(result).toBe(false);
   });
 });

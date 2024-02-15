@@ -4,13 +4,9 @@ import { DeleteResult, Repository } from 'typeorm';
 
 import {
   ArchiveJobDraftInput,
-  CreateJobDraftInput,
   UpdateJobDraftInput,
 } from '../../../../application/job/inputs';
-import {
-  CreateJobDraftOutput,
-  ReadDraftByIdOutput,
-} from '../../../../application/job/outputs';
+import { ReadDraftByIdOutput } from '../../../../application/job/outputs';
 import { IJobDraftDbUseCase } from '../../../../application/job/usecases/job-db.interface';
 import { JobModel } from './models';
 
@@ -20,10 +16,6 @@ export class JobDbRepository implements IJobDraftDbUseCase {
     @InjectRepository(JobModel)
     private readonly _jobRepository: Repository<JobModel>,
   ) {}
-
-  async create(data: CreateJobDraftInput): Promise<CreateJobDraftOutput> {
-    return await this._jobRepository.save(data);
-  }
 
   async update(id: string, data: UpdateJobDraftInput): Promise<boolean> {
     return !!this._jobRepository.update({ id }, { ...data });

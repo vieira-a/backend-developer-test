@@ -1,13 +1,16 @@
 import { Injectable } from '@nestjs/common';
 
-import { CreateJobDraftOutput } from '../../../application/job/outputs';
-import { JobResponseMapper } from '../../transports/job/mapper';
-
 @Injectable()
 export class JobPresenter {
-  constructor(private readonly _jobResponseMapper: JobResponseMapper) {}
-  async createDraftSuccess(output: CreateJobDraftOutput) {
-    return await this._jobResponseMapper.jobDraftResponse(output);
+  async createJobResult(output: boolean) {
+    if (!output) {
+      return {
+        message: 'Houve uma falha ao criar publicação',
+      };
+    }
+    return {
+      message: 'Publicação criada com sucesso',
+    };
   }
 
   async updatedDraftSuccess() {

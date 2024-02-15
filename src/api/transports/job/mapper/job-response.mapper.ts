@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateJobDraftOutput } from 'src/application/job/outputs';
 
 @Injectable()
 export class JobResponseMapper {

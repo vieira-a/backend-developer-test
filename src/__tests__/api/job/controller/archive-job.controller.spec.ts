@@ -63,4 +63,14 @@ describe('ArchiveJobController', () => {
       message: 'A publicação foi arquivada com sucesso',
     });
   });
+
+  it('should archive a job unsuccessfully', async () => {
+    jest.spyOn(service, 'archive').mockResolvedValue(false);
+    await controller.handle(jobMock.id);
+
+    expect(await presenter.archiveJobResult(false)).toEqual({
+      success: false,
+      message: 'Houve uma falha ao arquivar a publicação',
+    });
+  });
 });

@@ -1,8 +1,8 @@
 import { Body, Controller, Post } from '@nestjs/common';
 
 import { JobPresenter } from '../../../api/presenters/job';
-import { CreateJobService } from '../../../application/job/services/create-job.service';
-import { CreateJobRequest } from '../../transports/job/requests/create-job.request';
+import { CreateJobService } from '../../../application/job/services';
+import { CreateJobRequest } from '../../transports/job/requests';
 
 @Controller('job')
 export class CreateJobController {

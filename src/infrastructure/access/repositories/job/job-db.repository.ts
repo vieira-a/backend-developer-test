@@ -6,7 +6,6 @@ import {
   ArchiveJobDraftInput,
   UpdateJobDraftInput,
 } from '../../../../application/job/inputs';
-import { ReadDraftByIdOutput } from '../../../../application/job/outputs';
 import { IJobDraftDbUseCase } from '../../../../application/job/usecases/job-db.interface';
 import { JobModel } from './models';
 
@@ -19,10 +18,6 @@ export class JobDbRepository implements IJobDraftDbUseCase {
 
   async update(id: string, data: UpdateJobDraftInput): Promise<boolean> {
     return !!this._jobRepository.update({ id }, { ...data });
-  }
-
-  async readById(id: string): Promise<ReadDraftByIdOutput> {
-    return await this._jobRepository.findOne({ where: { id } });
   }
 
   async delete(id: string): Promise<boolean> {

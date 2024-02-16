@@ -4,7 +4,7 @@ import { JobPresenter } from '../../../api/presenters/job';
 import { CreateJobService } from '../../../application/job/services/create-job.service';
 import { CreateJobRequest } from '../../transports/job/requests/create-job.request';
 
-@Controller('job/create')
+@Controller('job')
 export class CreateJobController {
   constructor(
     private readonly _createJobService: CreateJobService,

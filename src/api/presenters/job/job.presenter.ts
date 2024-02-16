@@ -1,4 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { ReadJobResponse } from 'src/api/transports/job/responses';
+
+import { ReadJobOutput } from '../../../application/job/outputs';
 
 @Injectable()
 export class JobPresenter {
@@ -10,6 +13,17 @@ export class JobPresenter {
     }
     return {
       message: 'Publicação criada com sucesso',
+    };
+  }
+
+  async readJobResult(output: ReadJobOutput | null): Promise<ReadJobResponse> {
+    if (!output) {
+      return {
+        message: 'Houve uma falha ao carregar a publicação',
+      };
+    }
+    return {
+      data: output,
     };
   }
 

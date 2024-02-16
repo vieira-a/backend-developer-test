@@ -35,7 +35,7 @@ describe('ReadJobByIdService', () => {
     expect(repository).toBeDefined();
   });
 
-  it('should read a job draft by id', async () => {
+  it('should read a job by id', async () => {
     const jobId = 'd9b8203c-e87e-4366-b162-66bf0cecb429';
     jest.spyOn(repository, 'readById').mockResolvedValue(jobMock);
     const result = await service.readById(jobId);

@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 import {
   ArchiveJobResponse,
   DeleteJobResponse,
   ReadJobResponse,
+  UpdateJobResponse,
 } from '../../../api/transports/job/responses';
 import { ReadJobOutput } from '../../../application/job/outputs';
 
@@ -20,11 +21,9 @@ export class JobPresenter {
     };
   }
 
-  async readJobResult(output: ReadJobOutput | null): Promise<ReadJobResponse> {
+  async readJobResult(output: ReadJobOutput): Promise<ReadJobResponse> {
     if (!output) {
-      return {
-        message: 'A publicação não foi encontrada',
-      };
+      throw new NotFoundException('A publicação não foi encontrada ');
     }
     return {
       data: output,
@@ -57,11 +56,16 @@ export class JobPresenter {
     };
   }
 
-  async updatedDraftSuccess() {
-    return { message: 'Registro atualizado com sucesso' };
-  }
-
-  async updatedDraftNotSuccess() {
-    return { message: 'Sem dados para atualizar' };
+  async updateJobResult(output: boolean): Promise<UpdateJobResponse> {
+    if (!output) {
+      return {
+        success: false,
+        message: 'Não há dados para atualizar',
+      };
+    }
+    return {
+      success: true,
+      message: 'A publicação foi atualizada com sucesso',
+    };
   }
 }

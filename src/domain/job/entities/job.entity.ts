@@ -67,7 +67,7 @@ export class JobEntity extends EntityBase {
     if (!data) {
       throw new NotFoundException('A publicação não foi localizada');
     }
-    return;
+    return true;
   }
 
   public static async validateArchive(data: JobEntity): Promise<JobStatus> {

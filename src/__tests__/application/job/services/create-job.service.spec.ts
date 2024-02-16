@@ -54,7 +54,7 @@ describe('CreateJobService', () => {
     expect(readCompanyByIdService).toBeDefined();
   });
 
-  it('should create a job draft on success', async () => {
+  it('should create a job on success', async () => {
     jest.spyOn(service, 'create').mockResolvedValue(true);
     const result = await service.create(jobMock);
     expect(result).toEqual(true);

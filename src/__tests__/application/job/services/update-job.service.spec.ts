@@ -3,43 +3,47 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { jobMock } from '../../../../__mocks__/job';
 import {
-  ReadJobDraftByIdService,
-  UpdateJobDraftService,
+  ReadJobByIdService,
+  UpdateJobService,
 } from '../../../../application/job/services';
-import { JobDbRepository } from '../../../../infrastructure/access/repositories/job';
-import { JobModel } from '../../../../infrastructure/access/repositories/job/models';
+import { DbTypeOrmRepository } from '../../../../infrastructure/access/repositories/job';
+import { JobDbModel } from '../../../../infrastructure/access/repositories/job/models';
 
-describe('UpdateJobDraftService', () => {
-  let service: UpdateJobDraftService;
-  let repository: JobDbRepository;
-  let readJobDraftByIdService: ReadJobDraftByIdService;
+describe('UpdateJobService', () => {
+  let service: UpdateJobService;
+  let repository: DbTypeOrmRepository;
+  let readJobByIdService: ReadJobByIdService;
 
   beforeAll(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       providers: [
-        UpdateJobDraftService,
-        JobDbRepository,
+        UpdateJobService,
+        DbTypeOrmRepository,
         {
-          provide: getRepositoryToken(JobModel),
+          provide: getRepositoryToken(JobDbModel),
           useValue: { update: jest.fn() },
         },
-        ReadJobDraftByIdService,
+        ReadJobByIdService,
         {
-          provide: getRepositoryToken(JobModel),
+          provide: getRepositoryToken(JobDbModel),
           useValue: { readById: jest.fn() },
         },
       ],
     }).compile();
 
-    service = moduleRef.get<UpdateJobDraftService>(UpdateJobDraftService);
-    repository = moduleRef.get<JobDbRepository>(JobDbRepository);
-    readJobDraftByIdService = moduleRef.get<ReadJobDraftByIdService>(
-      ReadJobDraftByIdService,
-    );
+    service = moduleRef.get<UpdateJobService>(UpdateJobService);
+    repository = moduleRef.get<DbTypeOrmRepository>(DbTypeOrmRepository);
+    readJobByIdService = moduleRef.get<ReadJobByIdService>(ReadJobByIdService);
   });
 
   afterEach(() => {
     jest.clearAllMocks();
+  });
+
+  it('should define dependencies', () => {
+    expect(service).toBeDefined();
+    expect(repository).toBeDefined();
+    expect(readJobByIdService).toBeDefined();
   });
 
   it('should update a job title on success', async () => {
@@ -76,7 +80,7 @@ describe('UpdateJobDraftService', () => {
   });
 
   it('should return false if not found job by id', async () => {
-    jest.spyOn(readJobDraftByIdService, 'readById').mockResolvedValue(null);
+    jest.spyOn(readJobByIdService, 'readById').mockResolvedValue(null);
     jest.spyOn(service, 'update').mockResolvedValue(false);
 
     const result = await service.update(jobMock.id, {

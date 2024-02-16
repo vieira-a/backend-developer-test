@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 
 import {
   ArchiveJobDraftInput,
@@ -18,14 +18,6 @@ export class JobDbRepository implements IJobDraftDbUseCase {
 
   async update(id: string, data: UpdateJobDraftInput): Promise<boolean> {
     return !!this._jobRepository.update({ id }, { ...data });
-  }
-
-  async delete(id: string): Promise<boolean> {
-    const deleteResult: DeleteResult = await this._jobRepository.delete({ id });
-    if (deleteResult.affected === 0) {
-      return false;
-    }
-    return true;
   }
 
   async archive(

@@ -59,7 +59,7 @@ describe('CreateJobController', () => {
     expect(repository).toBeDefined();
   });
 
-  it('should create a job draft with correct values', async () => {
+  it('should create a job with correct values', async () => {
     jest.spyOn(service, 'create').mockResolvedValue(true);
     const output = controller.handle(jobMock);
 

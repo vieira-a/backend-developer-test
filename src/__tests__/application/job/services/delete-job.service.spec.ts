@@ -11,7 +11,7 @@ import { JobDbModel } from '../../../../infrastructure/access/repositories/job/m
 
 describe('DeleteJobService', () => {
   let service: DeleteJobService;
-  let readJobDraftByIdService: ReadJobByIdService;
+  let readJobByIdService: ReadJobByIdService;
   let repository: DbTypeOrmRepository;
 
   beforeAll(async () => {
@@ -33,8 +33,7 @@ describe('DeleteJobService', () => {
 
     service = moduleRef.get<DeleteJobService>(DeleteJobService);
     repository = moduleRef.get<DbTypeOrmRepository>(DbTypeOrmRepository);
-    readJobDraftByIdService =
-      moduleRef.get<ReadJobByIdService>(ReadJobByIdService);
+    readJobByIdService = moduleRef.get<ReadJobByIdService>(ReadJobByIdService);
   });
 
   afterEach(() => {
@@ -44,11 +43,11 @@ describe('DeleteJobService', () => {
   it('should be define dependencies', () => {
     expect(service).toBeDefined();
     expect(repository).toBeDefined();
-    expect(readJobDraftByIdService).toBeDefined();
+    expect(readJobByIdService).toBeDefined();
   });
 
-  it('ensure delete a job draft successfully', async () => {
-    jest.spyOn(readJobDraftByIdService, 'readById').mockResolvedValue(jobMock);
+  it('ensure delete a job successfully', async () => {
+    jest.spyOn(readJobByIdService, 'readById').mockResolvedValue(jobMock);
     jest.spyOn(repository, 'delete').mockResolvedValue(true);
     jest.spyOn(service, 'delete').mockResolvedValue(true);
 
@@ -56,8 +55,8 @@ describe('DeleteJobService', () => {
     expect(result).toBe(true);
   });
 
-  it('ensure delete uncessfully if not found job draft', async () => {
-    jest.spyOn(readJobDraftByIdService, 'readById').mockResolvedValue(null);
+  it('ensure delete uncessfully if not found job', async () => {
+    jest.spyOn(readJobByIdService, 'readById').mockResolvedValue(null);
     jest.spyOn(repository, 'delete').mockResolvedValue(false);
     jest.spyOn(service, 'delete').mockResolvedValue(false);
 

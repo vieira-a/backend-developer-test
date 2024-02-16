@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { JobStatus } from 'src/domain/enums';
 import { DeleteResult, Repository } from 'typeorm';
 
 import { ReadJobOutput } from '../../../../application/job/outputs';
@@ -29,6 +30,11 @@ export class DbTypeOrmRepository implements IJobDbRepository {
     if (deleteResult.affected === 0) {
       return false;
     }
+    return true;
+  }
+
+  async archive(id: string, data: JobStatus): Promise<boolean> {
+    await this._typeOrmRepository.update({ id }, { status: data });
     return true;
   }
 }

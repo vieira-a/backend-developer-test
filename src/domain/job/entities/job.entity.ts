@@ -56,20 +56,6 @@ export class JobEntity extends EntityBase {
     );
   }
 
-  public archive(): CreateJobOutput {
-    if (this.status !== JobStatus.PUBLISHED) {
-      return {
-        error: new BadRequestException(
-          'Apenas postagens publicadas podem ser arquivadas',
-        ),
-      };
-    }
-    this.status = JobStatus.ARCHIVED;
-    return {
-      message: 'Publicação arquivada com sucesso',
-    };
-  }
-
   public publish(): CreateJobOutput {
     this.status = JobStatus.PUBLISHED;
     return {
@@ -82,5 +68,18 @@ export class JobEntity extends EntityBase {
       throw new NotFoundException('A publicação não foi localizada');
     }
     return;
+  }
+
+  public static async validateArchive(data: JobEntity): Promise<JobStatus> {
+    if (!data) {
+      throw new NotFoundException('A publicação não foi localizada');
+    }
+    if (data.status !== JobStatus.PUBLISHED) {
+      throw new BadRequestException(
+        'Apenas postagens publicadas podem ser arquivadas',
+      );
+    }
+
+    return JobStatus.ARCHIVED;
   }
 }

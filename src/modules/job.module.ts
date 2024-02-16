@@ -1,9 +1,15 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { CreateJobController } from '../api/controllers/job/create-job.controller';
+import {
+  CreateJobController,
+  ReadJobByIdController,
+} from '../api/controllers/job';
 import { JobPresenter } from '../api/presenters/job';
-import { CreateJobService } from '../application/job/services/create-job.service';
+import {
+  CreateJobService,
+  ReadJobByIdService,
+} from '../application/job/services';
 import { DbTypeOrmRepository } from '../infrastructure/access/repositories/job/db-typeorm.repository';
 import { JobDbModel } from '../infrastructure/access/repositories/job/models/job-db.model';
 import { CompanyModule } from './company.module';
@@ -31,6 +37,7 @@ import { CompanyModule } from './company.module';
     // DeleteJobDraftController,
     // ArchiveJobDraftController,
     CreateJobController,
+    ReadJobByIdController,
   ],
   providers: [
     // ReadJobDraftByIdService,
@@ -39,6 +46,7 @@ import { CompanyModule } from './company.module';
     // ArchiveJobDraftService,
     // CreateJobDraftService,
     CreateJobService,
+    ReadJobByIdService,
     //JobDbRepository,
     DbTypeOrmRepository,
     JobPresenter,

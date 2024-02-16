@@ -3,11 +3,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import {
   CreateJobController,
+  DeleteJobController,
   ReadJobByIdController,
 } from '../api/controllers/job';
 import { JobPresenter } from '../api/presenters/job';
 import {
   CreateJobService,
+  DeleteJobService,
   ReadJobByIdService,
 } from '../application/job/services';
 import { DbTypeOrmRepository } from '../infrastructure/access/repositories/job/db-typeorm.repository';
@@ -38,6 +40,7 @@ import { CompanyModule } from './company.module';
     // ArchiveJobDraftController,
     CreateJobController,
     ReadJobByIdController,
+    DeleteJobController,
   ],
   providers: [
     // ReadJobDraftByIdService,
@@ -47,6 +50,7 @@ import { CompanyModule } from './company.module';
     // CreateJobDraftService,
     CreateJobService,
     ReadJobByIdService,
+    DeleteJobService,
     //JobDbRepository,
     DbTypeOrmRepository,
     JobPresenter,

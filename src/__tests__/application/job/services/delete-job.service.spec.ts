@@ -3,48 +3,53 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { jobMock } from '../../../../__mocks__/job';
 import {
-  DeleteJobDraftService,
-  ReadJobDraftByIdService,
+  DeleteJobService,
+  ReadJobByIdService,
 } from '../../../../application/job/services';
-import { JobDbRepository } from '../../../../infrastructure/access/repositories/job';
-import { JobModel } from '../../../../infrastructure/access/repositories/job/models';
+import { DbTypeOrmRepository } from '../../../../infrastructure/access/repositories/job';
+import { JobDbModel } from '../../../../infrastructure/access/repositories/job/models';
 
-describe('DeleteJobDraftService', () => {
-  let service: DeleteJobDraftService;
-  let repository: JobDbRepository;
-  let readJobDraftByIdService: ReadJobDraftByIdService;
+describe('DeleteJobService', () => {
+  let service: DeleteJobService;
+  let readJobDraftByIdService: ReadJobByIdService;
+  let repository: DbTypeOrmRepository;
 
   beforeAll(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       providers: [
-        DeleteJobDraftService,
-        JobDbRepository,
+        DeleteJobService,
+        DbTypeOrmRepository,
         {
-          provide: getRepositoryToken(JobModel),
+          provide: getRepositoryToken(JobDbModel),
           useValue: { delete: jest.fn() },
         },
-        ReadJobDraftByIdService,
+        ReadJobByIdService,
         {
-          provide: getRepositoryToken(JobModel),
+          provide: getRepositoryToken(JobDbModel),
           useValue: { readById: jest.fn() },
         },
       ],
     }).compile();
 
-    service = moduleRef.get<DeleteJobDraftService>(DeleteJobDraftService);
-    repository = moduleRef.get<JobDbRepository>(JobDbRepository);
-    readJobDraftByIdService = moduleRef.get<ReadJobDraftByIdService>(
-      ReadJobDraftByIdService,
-    );
+    service = moduleRef.get<DeleteJobService>(DeleteJobService);
+    repository = moduleRef.get<DbTypeOrmRepository>(DbTypeOrmRepository);
+    readJobDraftByIdService =
+      moduleRef.get<ReadJobByIdService>(ReadJobByIdService);
   });
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
+  it('should be define dependencies', () => {
+    expect(service).toBeDefined();
+    expect(repository).toBeDefined();
+    expect(readJobDraftByIdService).toBeDefined();
+  });
+
   it('ensure delete a job draft successfully', async () => {
     jest.spyOn(readJobDraftByIdService, 'readById').mockResolvedValue(jobMock);
-    jest.spyOn(repository, 'update').mockResolvedValue(true);
+    jest.spyOn(repository, 'delete').mockResolvedValue(true);
     jest.spyOn(service, 'delete').mockResolvedValue(true);
 
     const result = await service.delete(jobMock.id);
@@ -53,7 +58,7 @@ describe('DeleteJobDraftService', () => {
 
   it('ensure delete uncessfully if not found job draft', async () => {
     jest.spyOn(readJobDraftByIdService, 'readById').mockResolvedValue(null);
-    jest.spyOn(repository, 'update').mockResolvedValue(false);
+    jest.spyOn(repository, 'delete').mockResolvedValue(false);
     jest.spyOn(service, 'delete').mockResolvedValue(false);
 
     const result = await service.delete(jobMock.id);

@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { ReadJobResponse } from 'src/api/transports/job/responses';
 
+import {
+  DeleteJobResponse,
+  ReadJobResponse,
+} from '../../../api/transports/job/responses';
 import { ReadJobOutput } from '../../../application/job/outputs';
 
 @Injectable()
@@ -19,11 +22,24 @@ export class JobPresenter {
   async readJobResult(output: ReadJobOutput | null): Promise<ReadJobResponse> {
     if (!output) {
       return {
-        message: 'Houve uma falha ao carregar a publicação',
+        message: 'A publicação não foi encontrada',
       };
     }
     return {
       data: output,
+    };
+  }
+
+  async deleteJobResult(output: boolean): Promise<DeleteJobResponse> {
+    if (!output) {
+      return {
+        success: false,
+        message: 'Houve uma falha ao excluir a publicação',
+      };
+    }
+    return {
+      success: true,
+      message: 'A publicação foi excluída com sucesso',
     };
   }
 

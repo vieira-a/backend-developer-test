@@ -4,28 +4,24 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { jobMock } from '../../../../__mocks__/job';
 import { ReadCompanyByIdService } from '../../../../application/company/services';
-import { CreateJobDraftService } from '../../../../application/job/services';
+import { CreateJobService } from '../../../../application/job/services';
 import { CompanyDbRepository } from '../../../../infrastructure/access/repositories/company';
 import { CompanyModel } from '../../../../infrastructure/access/repositories/company/models';
-import { JobDbRepository } from '../../../../infrastructure/access/repositories/job';
-import { JobModel } from '../../../../infrastructure/access/repositories/job/models';
+import { DbTypeOrmRepository } from '../../../../infrastructure/access/repositories/job/db-typeorm.repository';
+import { JobDbModel } from '../../../../infrastructure/access/repositories/job/models/job-db.model';
 
-describe('CreateJobDraftService', () => {
-  let service: CreateJobDraftService;
-  let repository: JobDbRepository;
+describe('CreateJobService', () => {
+  let service: CreateJobService;
+  let repository: DbTypeOrmRepository;
   let readCompanyByIdService: ReadCompanyByIdService;
 
   beforeAll(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       providers: [
-        CreateJobDraftService,
+        CreateJobService,
+        DbTypeOrmRepository,
         {
-          provide: getRepositoryToken(JobModel),
-          useValue: { execute: jest.fn() },
-        },
-        JobDbRepository,
-        {
-          provide: getRepositoryToken(JobModel),
+          provide: getRepositoryToken(JobDbModel),
           useValue: { create: jest.fn() },
         },
         ReadCompanyByIdService,
@@ -41,8 +37,8 @@ describe('CreateJobDraftService', () => {
       ],
     }).compile();
 
-    service = moduleRef.get<CreateJobDraftService>(CreateJobDraftService);
-    repository = moduleRef.get<JobDbRepository>(JobDbRepository);
+    service = moduleRef.get<CreateJobService>(CreateJobService);
+    repository = moduleRef.get<DbTypeOrmRepository>(DbTypeOrmRepository);
     readCompanyByIdService = moduleRef.get<ReadCompanyByIdService>(
       ReadCompanyByIdService,
     );
@@ -52,10 +48,16 @@ describe('CreateJobDraftService', () => {
     jest.clearAllMocks();
   });
 
+  it('should be define dependencies', () => {
+    expect(service).toBeDefined();
+    expect(repository).toBeDefined();
+    expect(readCompanyByIdService).toBeDefined();
+  });
+
   it('should create a job draft on success', async () => {
-    jest.spyOn(service, 'create').mockResolvedValue(jobMock);
+    jest.spyOn(service, 'create').mockResolvedValue(true);
     const result = await service.create(jobMock);
-    expect(result).toEqual(jobMock);
+    expect(result).toEqual(true);
   });
 
   it('should return an error if service throws', async () => {

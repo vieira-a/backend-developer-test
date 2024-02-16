@@ -3,13 +3,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
 
 import {
-  CreateJobDraftInput,
+  ArchiveJobDraftInput,
   UpdateJobDraftInput,
 } from '../../../../application/job/inputs';
-import {
-  CreateJobDraftOutput,
-  ReadDraftByIdOutput,
-} from '../../../../application/job/outputs';
+import { ReadDraftByIdOutput } from '../../../../application/job/outputs';
 import { IJobDraftDbUseCase } from '../../../../application/job/usecases/job-db.interface';
 import { JobModel } from './models';
 
@@ -20,13 +17,8 @@ export class JobDbRepository implements IJobDraftDbUseCase {
     private readonly _jobRepository: Repository<JobModel>,
   ) {}
 
-  async create(data: CreateJobDraftInput): Promise<CreateJobDraftOutput> {
-    return await this._jobRepository.save(data);
-  }
-
   async update(id: string, data: UpdateJobDraftInput): Promise<boolean> {
-    const job = await this._jobRepository.findOne({ where: { id } });
-    return !!this._jobRepository.update({ id: job.id }, { ...data });
+    return !!this._jobRepository.update({ id }, { ...data });
   }
 
   async readById(id: string): Promise<ReadDraftByIdOutput> {
@@ -39,5 +31,15 @@ export class JobDbRepository implements IJobDraftDbUseCase {
       return false;
     }
     return true;
+  }
+
+  async archive(
+    id: string,
+    archiveStatus: ArchiveJobDraftInput,
+  ): Promise<boolean> {
+    return !!(await this._jobRepository.update(
+      { id },
+      { status: archiveStatus.status },
+    ));
   }
 }

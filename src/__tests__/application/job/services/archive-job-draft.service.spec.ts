@@ -2,26 +2,30 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { jobMock } from '../../../../__mocks__/job';
+import { ArchiveJobDraftRequest } from '../../../../api/transports/job/requests/archive-job-draft.request';
 import {
-  DeleteJobDraftService,
+  ArchiveJobDraftService,
   ReadJobDraftByIdService,
 } from '../../../../application/job/services';
 import { JobDbRepository } from '../../../../infrastructure/access/repositories/job';
 import { JobModel } from '../../../../infrastructure/access/repositories/job/models';
 
-describe('DeleteJobDraftService', () => {
-  let service: DeleteJobDraftService;
+const archiveRequest = new ArchiveJobDraftRequest();
+const archiveStatus = archiveRequest.setArchiveStatus();
+
+describe('ArchiveJobDraftService', () => {
+  let service: ArchiveJobDraftService;
   let repository: JobDbRepository;
   let readJobDraftByIdService: ReadJobDraftByIdService;
 
   beforeAll(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       providers: [
-        DeleteJobDraftService,
+        ArchiveJobDraftService,
         JobDbRepository,
         {
           provide: getRepositoryToken(JobModel),
-          useValue: { delete: jest.fn() },
+          useValue: { archive: jest.fn() },
         },
         ReadJobDraftByIdService,
         {
@@ -31,7 +35,7 @@ describe('DeleteJobDraftService', () => {
       ],
     }).compile();
 
-    service = moduleRef.get<DeleteJobDraftService>(DeleteJobDraftService);
+    service = moduleRef.get<ArchiveJobDraftService>(ArchiveJobDraftService);
     repository = moduleRef.get<JobDbRepository>(JobDbRepository);
     readJobDraftByIdService = moduleRef.get<ReadJobDraftByIdService>(
       ReadJobDraftByIdService,
@@ -42,27 +46,26 @@ describe('DeleteJobDraftService', () => {
     jest.clearAllMocks();
   });
 
-  it('ensure delete a job draft successfully', async () => {
-    jest.spyOn(readJobDraftByIdService, 'readById').mockResolvedValue(jobMock);
-    jest.spyOn(repository, 'update').mockResolvedValue(true);
-    jest.spyOn(service, 'delete').mockResolvedValue(true);
+  it('should archive a job on success', async () => {
+    jest.spyOn(repository, 'archive').mockResolvedValue(true);
+    jest.spyOn(service, 'archive').mockResolvedValue(true);
 
-    const result = await service.delete(jobMock.id);
+    const result = await service.archive(jobMock.id, archiveStatus);
     expect(result).toBe(true);
   });
 
-  it('ensure delete uncessfully if not found job draft', async () => {
+  it('should return false if not found job by id', async () => {
     jest.spyOn(readJobDraftByIdService, 'readById').mockResolvedValue(null);
-    jest.spyOn(repository, 'update').mockResolvedValue(false);
-    jest.spyOn(service, 'delete').mockResolvedValue(false);
+    jest.spyOn(service, 'archive').mockResolvedValue(false);
 
-    const result = await service.delete(jobMock.id);
+    const result = await service.archive(jobMock.id, archiveStatus);
     expect(result).toBe(false);
   });
 
   it('should return an error if service throws', async () => {
-    const jobId = 'd9b8203c-e87e-4366-b162-66bf0cecb429';
-    jest.spyOn(service, 'delete').mockRejectedValueOnce(new Error());
-    await expect(service.delete(jobId)).rejects.toThrow(new Error());
+    jest.spyOn(service, 'archive').mockRejectedValueOnce(new Error());
+    expect(service.archive(jobMock.id, archiveStatus)).rejects.toThrow(
+      new Error(),
+    );
   });
 });

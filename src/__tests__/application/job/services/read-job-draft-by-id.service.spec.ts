@@ -2,10 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { jobMock } from '../../../../__mocks__/job';
-import { ReadCompanyByIdService } from '../../../../application/company/services';
 import { ReadJobDraftByIdService } from '../../../../application/job/services';
-import { CompanyDbRepository } from '../../../../infrastructure/access/repositories/company';
-import { CompanyModel } from '../../../../infrastructure/access/repositories/company/models';
 import { JobDbRepository } from '../../../../infrastructure/access/repositories/job';
 import { JobModel } from '../../../../infrastructure/access/repositories/job/models';
 
@@ -17,23 +14,9 @@ describe('ReadJobDraftByIdService', () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       providers: [
         ReadJobDraftByIdService,
-        {
-          provide: getRepositoryToken(JobModel),
-          useValue: { execute: jest.fn() },
-        },
         JobDbRepository,
         {
           provide: getRepositoryToken(JobModel),
-          useValue: { create: jest.fn() },
-        },
-        ReadCompanyByIdService,
-        {
-          provide: getRepositoryToken(CompanyModel),
-          useValue: { execute: jest.fn() },
-        },
-        CompanyDbRepository,
-        {
-          provide: getRepositoryToken(CompanyModel),
           useValue: { readById: jest.fn() },
         },
       ],

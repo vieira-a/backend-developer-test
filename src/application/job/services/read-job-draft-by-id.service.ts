@@ -6,8 +6,8 @@ import { JobDbRepository } from '../../../infrastructure/access/repositories/job
 
 @Injectable()
 export class ReadJobDraftByIdService implements IReadJobDraftById {
-  constructor(private readonly _companyDbRepository: JobDbRepository) {}
+  constructor(private readonly _jobDbRepository: JobDbRepository) {}
   async readById(id: string): Promise<Job> {
-    return await this._companyDbRepository.readById(id);
+    return await this._jobDbRepository.readById(id);
   }
 }

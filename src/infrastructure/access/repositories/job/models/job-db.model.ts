@@ -8,10 +8,12 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+import { CreateJobInput } from '../../../../../application/job/inputs/create-job.input';
+import { JobStatus } from '../../../../../domain/enums';
 import { CompanyModel } from '../../company/models';
 
 @Entity('jobs')
-export class JobModel {
+export class JobDbModel extends CreateJobInput {
   @PrimaryGeneratedColumn('uuid')
   public id?: string;
 
@@ -29,22 +31,22 @@ export class JobModel {
   public location: string;
 
   @Column({ name: 'notes', type: 'text' })
-  public notes: string;
+  public notes?: string;
 
   @Column({ name: 'status', nullable: false, default: 'draft' })
-  public status: string;
+  public status?: JobStatus;
 
   @CreateDateColumn({
     name: 'created_at',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP()',
   })
-  public createdAt: Date;
+  public createdAt?: Date;
 
   @UpdateDateColumn({
     name: 'updated_at',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP()',
   })
-  public updatedAt: Date;
+  public updatedAt?: Date;
 }

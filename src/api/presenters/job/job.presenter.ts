@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import {
+  ArchiveJobResponse,
   DeleteJobResponse,
   ReadJobResponse,
 } from '../../../api/transports/job/responses';
@@ -43,27 +44,24 @@ export class JobPresenter {
     };
   }
 
+  async archiveJobResult(output: boolean): Promise<ArchiveJobResponse> {
+    if (!output) {
+      return {
+        success: false,
+        message: 'Houve uma falha ao arquivar a publicação',
+      };
+    }
+    return {
+      success: true,
+      message: 'A publicação foi arquivada com sucesso',
+    };
+  }
+
   async updatedDraftSuccess() {
     return { message: 'Registro atualizado com sucesso' };
   }
 
   async updatedDraftNotSuccess() {
     return { message: 'Sem dados para atualizar' };
-  }
-
-  async deletedDraftSuccess() {
-    return { message: 'Registro excluído com sucesso' };
-  }
-
-  async deletedDraftNotSuccess() {
-    return { message: 'Registro não excluído' };
-  }
-
-  async archiveDraftSuccess() {
-    return { message: 'Postagem arquivada com sucesso' };
-  }
-
-  async archiveDraftNotSuccess() {
-    return { message: 'Postagem não arquivada' };
   }
 }

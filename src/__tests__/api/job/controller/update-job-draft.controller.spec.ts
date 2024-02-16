@@ -6,10 +6,9 @@ import { UpdateJobDraftController } from '../../../../api/controllers/job';
 import { CompanyPresenter } from '../../../../api/presenters/company';
 import { JobPresenter } from '../../../../api/presenters/job';
 import { CompanyResponseMapper } from '../../../../api/transports/company/mappers';
-import { JobResponseMapper } from '../../../../api/transports/job/mapper';
 import { ReadCompanyByIdService } from '../../../../application/company/services';
 import {
-  ReadJobDraftByIdService,
+  ReadJobByIdService,
   UpdateJobDraftService,
 } from '../../../../application/job/services';
 import { CompanyDbRepository } from '../../../../infrastructure/access/repositories/company';
@@ -26,8 +25,7 @@ describe('UpdateJobDraftController', () => {
     const app: TestingModule = await Test.createTestingModule({
       controllers: [UpdateJobDraftController],
       providers: [
-        JobResponseMapper,
-        ReadJobDraftByIdService,
+        ReadJobByIdService,
         UpdateJobDraftService,
         {
           provide: getRepositoryToken(JobModel),

@@ -1,7 +1,7 @@
-import { BadRequestException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { IsNotEmpty, IsUUID } from 'class-validator';
 
-import { CreateJobOutput } from '../../../application/job/outputs/create-job-output.interface';
+import { CreateJobOutput } from '../../../application/job/outputs';
 import { Company } from '../../../domain/entities/company';
 import { EntityBase } from '../../entities/entity.base';
 import { JobStatus } from '../../enums';
@@ -75,5 +75,12 @@ export class JobEntity extends EntityBase {
     return {
       message: 'Postagem publicada com sucesso',
     };
+  }
+
+  public static async validateDelete(data: JobEntity) {
+    if (!data) {
+      throw new NotFoundException('A publicação não foi localizada');
+    }
+    return;
   }
 }

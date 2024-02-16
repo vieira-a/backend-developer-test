@@ -8,7 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { CreateJobInput } from '../../../../../application/job/inputs/create-job.input';
+import { CreateJobInput } from '../../../../../application/job/inputs';
 import { JobStatus } from '../../../../../domain/enums';
 import { CompanyModel } from '../../company/models';
 

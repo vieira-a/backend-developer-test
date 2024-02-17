@@ -82,4 +82,21 @@ export class JobEntity extends EntityBase {
 
     return JobStatus.ARCHIVED;
   }
+
+  public static async validatePublish(data: JobEntity): Promise<JobStatus> {
+    if (!data) {
+      throw new NotFoundException('A publicação não foi localizada');
+    }
+
+    if (data.status === JobStatus.PUBLISHED) {
+      throw new BadRequestException('Esta postagem já foi publicada');
+    }
+
+    if (data.status === JobStatus.REJECTED) {
+      throw new BadRequestException(
+        'Postagens rejeitadas não podem ser publicadas',
+      );
+    }
+    return JobStatus.PUBLISHED;
+  }
 }

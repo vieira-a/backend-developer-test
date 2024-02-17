@@ -40,10 +40,12 @@ export class DbTypeOrmRepository implements IJobDbRepository {
   }
 
   async update(id: string, data: UpdateJobInput): Promise<boolean> {
-    //const queryBuilder = this._typeOrmRepository.createQueryBuilder('jobs');
-    //queryBuilder.update('jobs').set(data).where('id = :id', { id }).execute();
-
     await this._typeOrmRepository.update({ id }, { ...data });
+    return true;
+  }
+
+  async publish(id: string, data: JobStatus): Promise<boolean> {
+    await this._typeOrmRepository.update({ id }, { status: data });
     return true;
   }
 }

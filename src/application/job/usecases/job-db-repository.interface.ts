@@ -4,6 +4,7 @@ import {
   ArchiveJob,
   CreateJob,
   DeleteJob,
+  PublishJob,
   ReadJobById,
   UpdateJob,
 } from '../../../domain/job/usecases';
@@ -15,10 +16,12 @@ export interface IJobDbRepository
     ReadJobById,
     DeleteJob,
     ArchiveJob,
-    UpdateJob {
-  create: (data: CreateJobInput) => Promise<boolean>;
-  readById: (id: string) => Promise<ReadJobOutput>;
-  delete: (id: string) => Promise<boolean>;
+    UpdateJob,
+    PublishJob {
   archive: (id: string, data: JobStatus) => Promise<boolean>;
+  create: (data: CreateJobInput) => Promise<boolean>;
+  delete: (id: string) => Promise<boolean>;
+  readById: (id: string) => Promise<ReadJobOutput>;
   update: (id: string, data: UpdateJobInput) => Promise<boolean>;
+  publish: (id: string, data: JobStatus) => Promise<boolean>;
 }

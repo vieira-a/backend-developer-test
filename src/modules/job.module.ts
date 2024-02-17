@@ -5,6 +5,7 @@ import {
   ArchiveJobController,
   CreateJobController,
   DeleteJobController,
+  PublishJobController,
   ReadJobByIdController,
   UpdateJobController,
 } from '../api/controllers/job';
@@ -13,6 +14,7 @@ import {
   ArchiveJobService,
   CreateJobService,
   DeleteJobService,
+  PublishJobService,
   ReadJobByIdService,
   UpdateJobService,
 } from '../application/job/services';
@@ -28,15 +30,17 @@ import { CompanyModule } from './company.module';
     DeleteJobController,
     ArchiveJobController,
     UpdateJobController,
+    PublishJobController,
   ],
   providers: [
-    CreateJobService,
-    ReadJobByIdService,
-    DeleteJobService,
     ArchiveJobService,
+    CreateJobService,
+    DeleteJobService,
+    ReadJobByIdService,
+    PublishJobService,
     UpdateJobService,
-    DbTypeOrmRepository,
     JobPresenter,
+    DbTypeOrmRepository,
   ],
 })
 export class JobModule {}

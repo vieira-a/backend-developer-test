@@ -1,23 +1,23 @@
-import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { BadRequestException } from '@nestjs/common';
 import { IsNotEmpty, IsUUID } from 'class-validator';
 
-import { CreateJobOutput } from '../../../application/job/outputs';
 import { Company } from '../../../domain/entities/company';
 import { EntityBase } from '../../entities/entity.base';
 import { JobStatus } from '../../enums';
+import { JobException } from '../exceptions/job.exceptions';
 
 export class JobEntity extends EntityBase {
-  @IsNotEmpty({ message: 'Por favor, informe o ID empresa' })
-  @IsUUID(4, { message: 'O ID da empresa não está no formato inválido' })
+  @IsNotEmpty({ message: JobException.emptyCompanyId })
+  @IsUUID(4, { message: JobException.companyIdFormatInvalid })
   public companyId: string;
 
-  @IsNotEmpty({ message: 'Por favor, informe um título para a publicação' })
+  @IsNotEmpty({ message: JobException.emptyTitle })
   public title: string;
 
-  @IsNotEmpty({ message: 'Por favor, informe uma descrição para a publicação' })
+  @IsNotEmpty({ message: JobException.emptyDescription })
   public description: string;
 
-  @IsNotEmpty({ message: 'Por favor, informe a localização' })
+  @IsNotEmpty({ message: JobException.emptyLocation })
   public location: string;
 
   public notes?: string;
@@ -56,28 +56,19 @@ export class JobEntity extends EntityBase {
     );
   }
 
-  public publish(): CreateJobOutput {
-    this.status = JobStatus.PUBLISHED;
-    return {
-      message: 'Postagem publicada com sucesso',
-    };
-  }
-
   public static async validateDelete(data: JobEntity) {
     if (!data) {
-      throw new NotFoundException('A publicação não foi localizada');
+      return JobException.publicationNotFound();
     }
     return true;
   }
 
   public static async validateArchive(data: JobEntity): Promise<JobStatus> {
     if (!data) {
-      throw new NotFoundException('A publicação não foi localizada');
+      return JobException.publicationNotFound();
     }
     if (data.status !== JobStatus.PUBLISHED) {
-      throw new BadRequestException(
-        'Apenas postagens publicadas podem ser arquivadas',
-      );
+      return JobException.invalidPublicationStatus();
     }
 
     return JobStatus.ARCHIVED;
@@ -85,17 +76,15 @@ export class JobEntity extends EntityBase {
 
   public static async validatePublish(data: JobEntity): Promise<JobStatus> {
     if (!data) {
-      throw new NotFoundException('A publicação não foi localizada');
+      return JobException.publicationNotFound();
     }
 
     if (data.status === JobStatus.PUBLISHED) {
-      throw new BadRequestException('Esta postagem já foi publicada');
+      return JobException.publicationAlreadyPublished();
     }
 
     if (data.status === JobStatus.REJECTED) {
-      throw new BadRequestException(
-        'Postagens rejeitadas não podem ser publicadas',
-      );
+      return JobException.rejectedPublication();
     }
     return JobStatus.PUBLISHED;
   }

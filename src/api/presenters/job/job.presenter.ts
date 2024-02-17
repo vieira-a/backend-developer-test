@@ -3,6 +3,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import {
   ArchiveJobResponse,
   DeleteJobResponse,
+  PublishJobResponse,
   ReadJobResponse,
   UpdateJobResponse,
 } from '../../../api/transports/job/responses';
@@ -53,6 +54,19 @@ export class JobPresenter {
     return {
       success: true,
       message: 'A publicação foi arquivada com sucesso',
+    };
+  }
+
+  async publishJobResult(output: boolean): Promise<PublishJobResponse> {
+    if (!output) {
+      return {
+        success: false,
+        message: 'Houve uma falha ao publicar a postagem',
+      };
+    }
+    return {
+      success: true,
+      message: 'A postagem foi publicada com sucesso',
     };
   }
 

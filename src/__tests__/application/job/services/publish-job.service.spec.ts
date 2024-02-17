@@ -53,4 +53,12 @@ describe('PublishJobService', () => {
     const result = await service.publish(jobMock.id);
     expect(result).toBe(true);
   });
+
+  it('should return false if not found job by id', async () => {
+    jest.spyOn(readJobByIdService, 'readById').mockResolvedValue(null);
+    jest.spyOn(service, 'publish').mockResolvedValue(false);
+
+    const result = await service.publish(jobMock.id);
+    expect(result).toBe(false);
+  });
 });

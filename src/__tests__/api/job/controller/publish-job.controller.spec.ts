@@ -63,4 +63,14 @@ describe('PublishJobController', () => {
       message: 'A postagem foi publicada com sucesso',
     });
   });
+
+  it('should publish a job unsuccessfully', async () => {
+    jest.spyOn(service, 'publish').mockResolvedValue(false);
+    await controller.handle(jobMock.id);
+
+    expect(await presenter.publishJobResult(false)).toEqual({
+      success: false,
+      message: 'Houve uma falha ao publicar a postagem',
+    });
+  });
 });

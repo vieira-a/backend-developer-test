@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 
 import {
   ArchiveJobResponse,
+  CreateJobResponse,
   DeleteJobResponse,
   PublishJobResponse,
   ReadJobResponse,
@@ -11,15 +12,13 @@ import { ReadJobOutput } from '../../../application/job/outputs';
 
 @Injectable()
 export class JobPresenter {
-  async createJobResult(output: boolean) {
-    if (!output) {
+  async createJobResult(output: boolean): Promise<CreateJobResponse> {
+    if (output) {
       return {
-        message: 'Houve uma falha ao criar publicação',
+        success: true,
+        message: 'A publicação foi criada com sucesso',
       };
     }
-    return {
-      message: 'Publicação criada com sucesso',
-    };
   }
 
   async readJobResult(output: ReadJobOutput): Promise<ReadJobResponse> {

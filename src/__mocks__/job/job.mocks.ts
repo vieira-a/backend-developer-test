@@ -1,5 +1,3 @@
-import { CreateJobOutput } from 'src/application/job/outputs';
-
 import { JobStatus } from '../../domain/enums';
 import { JobDbModel } from '../../infrastructure/access/repositories/job/models/job-db.model';
 
@@ -10,7 +8,4 @@ export const jobMock: JobDbModel = {
   location: 'Brazil',
   notes: 'Loren ipsum',
   status: JobStatus.DRAFT,
-  publish: function (): CreateJobOutput {
-    throw new Error('Function not implemented.');
-  },
 };

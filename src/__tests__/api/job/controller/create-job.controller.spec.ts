@@ -64,7 +64,8 @@ describe('CreateJobController', () => {
     const output = controller.handle(jobMock);
 
     expect(await output).toEqual({
-      message: 'Publicação criada com sucesso',
+      success: true,
+      message: 'A publicação foi criada com sucesso',
     });
   });
 

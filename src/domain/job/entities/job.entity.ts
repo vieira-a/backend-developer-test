@@ -1,4 +1,3 @@
-import { BadRequestException } from '@nestjs/common';
 import { IsNotEmpty, IsUUID } from 'class-validator';
 
 import { Company } from '../../../domain/entities/company';
@@ -7,8 +6,8 @@ import { JobStatus } from '../../enums';
 import { JobException } from '../exceptions/job.exceptions';
 
 export class JobEntity extends EntityBase {
-  @IsNotEmpty({ message: JobException.emptyCompanyId })
   @IsUUID(4, { message: JobException.companyIdFormatInvalid })
+  @IsNotEmpty({ message: JobException.emptyCompanyId })
   public companyId: string;
 
   @IsNotEmpty({ message: JobException.emptyTitle })
@@ -42,8 +41,8 @@ export class JobEntity extends EntityBase {
   }
 
   public static create(data: JobEntity, company: Company): JobEntity {
-    if (!company) {
-      throw new BadRequestException('O ID da empresa está incorreto');
+    if (!company.id) {
+      return JobException.emptyCompanyId();
     }
 
     return new JobEntity(

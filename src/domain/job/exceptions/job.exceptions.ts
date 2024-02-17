@@ -7,7 +7,7 @@ export class JobException {
 
   public static companyIdFormatInvalid(): never {
     throw new DomainException(
-      'O ID da empresa não está no formato inválido',
+      'O ID da empresa está no formato inválido ou não foi informado',
       422,
     );
   }

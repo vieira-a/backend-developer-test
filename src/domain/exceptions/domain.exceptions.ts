@@ -10,12 +10,4 @@ export class DomainException extends Error {
   public getStatus() {
     return this.httpStatus;
   }
-
-  // public getDomainException(
-  // ) {
-  //   if (exception instanceof DomainException) {
-  //     this.httpStatus = exception.getStatus();
-  //     this.message = exception.message;
-  //   }
-  // }
 }

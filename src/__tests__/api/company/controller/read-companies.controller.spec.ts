@@ -5,26 +5,24 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { companiesMock } from '../../../../__mocks__/company';
 import { ReadCompaniesController } from '../../../../api/controllers/company';
 import { CompanyPresenter } from '../../../../api/presenters/company';
-import { CompanyResponseMapper } from '../../../../api/transports/company/mappers';
+import { companiesResponseMapper } from '../../../../api/transports/company/mappers';
 import { ReadCompaniesService } from '../../../../application/company/services';
-import { CompanyDbRepository } from '../../../../infrastructure/access/repositories/company';
-import { CompanyModel } from '../../../../infrastructure/access/repositories/company/models';
+import { DbTypeOrmCompanyRepository } from '../../../../infrastructure/access/repositories/company';
+import { CompanyDbModel } from '../../../../infrastructure/access/repositories/company/models';
 
 describe('ReadCompaniesController', () => {
   let controller: ReadCompaniesController;
   let service: ReadCompaniesService;
-  let mapper: CompanyResponseMapper;
 
   beforeAll(async () => {
     const app: TestingModule = await Test.createTestingModule({
       controllers: [ReadCompaniesController],
       providers: [
         ReadCompaniesService,
-        CompanyDbRepository,
+        DbTypeOrmCompanyRepository,
         CompanyPresenter,
-        CompanyResponseMapper,
         {
-          provide: getRepositoryToken(CompanyModel),
+          provide: getRepositoryToken(CompanyDbModel),
           useValue: {
             execute: jest.fn(),
             readById: jest.fn(),
@@ -35,7 +33,6 @@ describe('ReadCompaniesController', () => {
 
     controller = app.get<ReadCompaniesController>(ReadCompaniesController);
     service = app.get<ReadCompaniesService>(ReadCompaniesService);
-    mapper = app.get<CompanyResponseMapper>(CompanyResponseMapper);
   });
 
   afterEach(() => {
@@ -43,15 +40,18 @@ describe('ReadCompaniesController', () => {
   });
 
   it('should returns all mapped companies on success', async () => {
-    jest.spyOn(service, 'execute').mockResolvedValue(companiesMock);
-    const companiesMappedMock = mapper.readCompaniesResponse(companiesMock);
+    jest.spyOn(service, 'readAll').mockResolvedValue(companiesMock);
+    const companiesMappedMock = companiesResponseMapper(companiesMock);
     const output = controller.handle();
 
-    expect(output).toEqual(companiesMappedMock);
+    expect(await output).toEqual({
+      success: true,
+      data: companiesMappedMock,
+    });
   });
 
   it('should returns 404 if not found companies', async () => {
-    jest.spyOn(service, 'execute').mockResolvedValue([]);
+    jest.spyOn(service, 'readAll').mockResolvedValue([]);
     const output = controller.handle();
 
     expect(output).rejects.toThrow(
@@ -60,7 +60,7 @@ describe('ReadCompaniesController', () => {
   });
 
   it('should return an error if service throws', async () => {
-    jest.spyOn(service, 'execute').mockRejectedValueOnce(new Error());
+    jest.spyOn(service, 'readAll').mockRejectedValueOnce(new Error());
     await expect(controller.handle()).rejects.toThrow(new Error());
   });
 });

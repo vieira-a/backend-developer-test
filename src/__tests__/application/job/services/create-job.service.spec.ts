@@ -5,8 +5,8 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { jobMock } from '../../../../__mocks__/job';
 import { ReadCompanyByIdService } from '../../../../application/company/services';
 import { CreateJobService } from '../../../../application/job/services';
-import { CompanyDbRepository } from '../../../../infrastructure/access/repositories/company';
-import { CompanyModel } from '../../../../infrastructure/access/repositories/company/models';
+import { DbTypeOrmCompanyRepository } from '../../../../infrastructure/access/repositories/company';
+import { CompanyDbModel } from '../../../../infrastructure/access/repositories/company/models';
 import { DbTypeOrmRepository } from '../../../../infrastructure/access/repositories/job/db-typeorm.repository';
 import { JobDbModel } from '../../../../infrastructure/access/repositories/job/models/job-db.model';
 
@@ -26,12 +26,12 @@ describe('CreateJobService', () => {
         },
         ReadCompanyByIdService,
         {
-          provide: getRepositoryToken(CompanyModel),
+          provide: getRepositoryToken(CompanyDbModel),
           useValue: { execute: jest.fn() },
         },
-        CompanyDbRepository,
+        DbTypeOrmCompanyRepository,
         {
-          provide: getRepositoryToken(CompanyModel),
+          provide: getRepositoryToken(CompanyDbModel),
           useValue: { readById: jest.fn() },
         },
       ],
@@ -67,7 +67,7 @@ describe('CreateJobService', () => {
 
   it('should return 404 if not found company', async () => {
     const notFoundId = '40a5ccb7-850a-4a8c-bdc0-86bbd3ba3388';
-    jest.spyOn(readCompanyByIdService, 'execute').mockResolvedValue(null);
+    jest.spyOn(readCompanyByIdService, 'readById').mockResolvedValue(null);
     jest
       .spyOn(service, 'create')
       .mockRejectedValueOnce(

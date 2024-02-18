@@ -12,7 +12,7 @@ export class CreateJobService implements CreateJob {
     private readonly _readCompanyByIdService: ReadCompanyByIdService,
   ) {}
   async create(data: JobEntity): Promise<boolean> {
-    const company = await this._readCompanyByIdService.execute(data.companyId);
+    const company = await this._readCompanyByIdService.readById(data.companyId);
     const newJob = JobEntity.create(data, company);
 
     return await this._repository.create(newJob);

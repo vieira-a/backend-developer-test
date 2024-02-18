@@ -1,6 +1,6 @@
 import { CompanyEntity } from '../../../domain/company/entities';
 
-export class ReadCompaniesOutput extends CompanyEntity {
+export class ReadCompanyOutput extends CompanyEntity {
   id?: string;
 
   name: string;

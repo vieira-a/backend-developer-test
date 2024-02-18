@@ -1,15 +1,15 @@
 import { Column, Entity, OneToMany } from 'typeorm';
 
 import { BaseModel } from '../../../models';
-import { JobModel } from '../../job/models';
+import { JobDbModel } from '../../job/models';
 
 @Entity('companies')
-export class CompanyModel extends BaseModel {
+export class CompanyDbModel extends BaseModel {
   @Column({ name: 'name', nullable: false, unique: true })
   public name: string;
 
-  @OneToMany(() => JobModel, (job) => job.companyId)
-  public jobs: JobModel[];
+  @OneToMany(() => JobDbModel, (job) => job.companyId)
+  public jobs: JobDbModel[];
 
   protected constructor() {
     super();

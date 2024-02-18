@@ -13,6 +13,6 @@ export class DeleteJobController {
   @Delete(':job_id')
   async handle(@Param('job_id') job_id: string) {
     const output = await this._deleteJobService.delete(job_id);
-    await this._jobPresenter.deleteJobResult(output);
+    return await this._jobPresenter.deleteJobResult(output);
   }
 }

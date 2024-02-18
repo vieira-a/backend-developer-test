@@ -8,8 +8,8 @@ import {
   ReadJobByIdService,
   UpdateJobService,
 } from '../../../../application/job/services';
-import { CompanyDbRepository } from '../../../../infrastructure/access/repositories/company';
-import { CompanyModel } from '../../../../infrastructure/access/repositories/company/models';
+import { DbTypeOrmCompanyRepository } from '../../../../infrastructure/access/repositories/company';
+import { CompanyDbModel } from '../../../../infrastructure/access/repositories/company/models';
 import { DbTypeOrmRepository } from '../../../../infrastructure/access/repositories/job';
 import { JobDbModel } from '../../../../infrastructure/access/repositories/job/models';
 
@@ -42,9 +42,9 @@ describe('UpdateJobController', () => {
           provide: getRepositoryToken(JobDbModel),
           useValue: { update: jest.fn() },
         },
-        CompanyDbRepository,
+        DbTypeOrmCompanyRepository,
         {
-          provide: getRepositoryToken(CompanyModel),
+          provide: getRepositoryToken(CompanyDbModel),
           useValue: { readAll: jest.fn(), readById: jest.fn() },
         },
       ],

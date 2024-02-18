@@ -1,1 +1,1 @@
-export * from './company-db.interface';
+export * from './company-db-repository.interface';

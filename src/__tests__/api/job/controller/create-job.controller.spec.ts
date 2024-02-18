@@ -5,11 +5,10 @@ import { jobMock } from '../../../../__mocks__/job';
 import { CreateJobController } from '../../../../api/controllers/job';
 import { CompanyPresenter } from '../../../../api/presenters/company';
 import { JobPresenter } from '../../../../api/presenters/job';
-import { CompanyResponseMapper } from '../../../../api/transports/company/mappers';
 import { ReadCompanyByIdService } from '../../../../application/company/services';
 import { CreateJobService } from '../../../../application/job/services';
-import { CompanyDbRepository } from '../../../../infrastructure/access/repositories/company';
-import { CompanyModel } from '../../../../infrastructure/access/repositories/company/models';
+import { DbTypeOrmCompanyRepository } from '../../../../infrastructure/access/repositories/company';
+import { CompanyDbModel } from '../../../../infrastructure/access/repositories/company/models';
 import { DbTypeOrmRepository } from '../../../../infrastructure/access/repositories/job';
 import { JobDbModel } from '../../../../infrastructure/access/repositories/job/models';
 
@@ -34,11 +33,10 @@ describe('CreateJobController', () => {
           useValue: { create: jest.fn() },
         },
         ReadCompanyByIdService,
-        CompanyDbRepository,
+        DbTypeOrmCompanyRepository,
         CompanyPresenter,
-        CompanyResponseMapper,
         {
-          provide: getRepositoryToken(CompanyModel),
+          provide: getRepositoryToken(CompanyDbModel),
           useValue: { readById: jest.fn() },
         },
       ],

@@ -1,6 +1,6 @@
-import { Company } from '../../../domain/entities/company';
+import { CompanyEntity } from '../../../domain/company/entities';
 
-export class CreateCompanyInput extends Company {
+export class CreateCompanyInput extends CompanyEntity {
   id?: string;
 
   name: string;

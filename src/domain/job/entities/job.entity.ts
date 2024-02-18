@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsUUID } from 'class-validator';
 
-import { Company } from '../../../domain/entities/company';
+import { CompanyEntity } from '../../company/entities';
 import { EntityBase } from '../../entities/entity.base';
 import { JobStatus } from '../../enums';
 import { JobException } from '../exceptions/job.exceptions';
@@ -40,7 +40,7 @@ export class JobEntity extends EntityBase {
     this.status = status;
   }
 
-  public static create(data: JobEntity, company: Company): JobEntity {
+  public static create(data: JobEntity, company: CompanyEntity): JobEntity {
     if (!company.id) {
       return JobException.emptyCompanyId();
     }

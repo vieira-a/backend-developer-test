@@ -1,17 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { ReadCompaniesOutput } from '../../../../application/company/outputs';
 
-import { ReadCompanyOutput } from '../../../../application/company/outputs';
-
-@Injectable()
-export class CompanyResponseMapper {
-  async readCompaniesResponse(output: ReadCompanyOutput[]) {
-    return output.map((company) => ({ id: company.id, name: company.name }));
-  }
-
-  async readCompanyById(output: ReadCompanyOutput) {
-    return {
-      id: output.id,
-      name: output.name,
-    };
-  }
-}
+export const companyResponseMapper = (output: ReadCompaniesOutput) => {
+  return { id: output.id, name: output.name };
+};

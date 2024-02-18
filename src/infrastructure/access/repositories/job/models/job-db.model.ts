@@ -10,14 +10,14 @@ import {
 
 import { CreateJobInput } from '../../../../../application/job/inputs';
 import { JobStatus } from '../../../../../domain/enums';
-import { CompanyModel } from '../../company/models';
+import { CompanyDbModel } from '../../company/models';
 
 @Entity('jobs')
 export class JobDbModel extends CreateJobInput {
   @PrimaryGeneratedColumn('uuid')
   public id?: string;
 
-  @ManyToOne(() => CompanyModel, (company) => company.jobs)
+  @ManyToOne(() => CompanyDbModel, (company) => company.jobs)
   @JoinColumn({ name: 'company_id' })
   public companyId: string;
 

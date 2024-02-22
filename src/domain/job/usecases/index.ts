@@ -4,3 +4,4 @@ export * from './delete-job.interface';
 export * from './archive-job.interface';
 export * from './update-job.interface';
 export * from './publish-job.interface';
+export * from './feed-jobs.interface';

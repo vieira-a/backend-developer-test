@@ -4,3 +4,4 @@ export * from './delete-job.service';
 export * from './archive-job.service';
 export * from './update-job.service';
 export * from './publish-job.service';
+export * from './feed-jobs.service';

@@ -9,10 +9,7 @@ import {
   ReadJobResponse,
   UpdateJobResponse,
 } from '../../../api/transports/job/responses';
-import {
-  FeedJobsOutput,
-  ReadJobOutput,
-} from '../../../application/job/outputs';
+import { ReadJobOutput } from '../../../application/job/outputs';
 
 @Injectable()
 export class JobPresenter {
@@ -86,13 +83,13 @@ export class JobPresenter {
     };
   }
 
-  async feedJobResult(output: FeedJobsOutput[]): Promise<FeedJobsResponse> {
+  async feedJobResult(output: string): Promise<FeedJobsResponse> {
     if (!output || output.length === 0) {
       return null;
     }
 
     return {
-      data: output,
+      data: JSON.parse(output),
     };
   }
 }

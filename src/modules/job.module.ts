@@ -20,6 +20,7 @@ import {
 } from '../application/job/services';
 import { DbTypeOrmRepository } from '../infrastructure/access/repositories/job/db-typeorm.repository';
 import { JobDbModel } from '../infrastructure/access/repositories/job/models/job-db.model';
+import { SqsService } from '../infrastructure/aws/sqs/sqs.service';
 import { CompanyModule } from './company.module';
 
 @Module({
@@ -39,6 +40,7 @@ import { CompanyModule } from './company.module';
     ReadJobByIdService,
     PublishJobService,
     UpdateJobService,
+    SqsService,
     JobPresenter,
     DbTypeOrmRepository,
   ],

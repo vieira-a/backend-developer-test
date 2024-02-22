@@ -10,6 +10,7 @@ import {
 } from '../../../../application/job/services';
 import { DbTypeOrmRepository } from '../../../../infrastructure/access/repositories/job';
 import { JobDbModel } from '../../../../infrastructure/access/repositories/job/models';
+import { SqsService } from '../../../../infrastructure/aws/sqs/sqs.service';
 
 describe('PublishJobController', () => {
   let controller: PublishJobController;
@@ -36,6 +37,7 @@ describe('PublishJobController', () => {
           provide: getRepositoryToken(JobDbModel),
           useValue: { deleteJobResult: jest.fn() },
         },
+        SqsService,
       ],
     }).compile();
 

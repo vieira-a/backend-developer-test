@@ -8,6 +8,7 @@ import {
 } from '../../../../application/job/services';
 import { DbTypeOrmRepository } from '../../../../infrastructure/access/repositories/job';
 import { JobDbModel } from '../../../../infrastructure/access/repositories/job/models';
+import { SqsService } from '../../../../infrastructure/aws/sqs/sqs.service';
 
 describe('PublishJobService', () => {
   let service: PublishJobService;
@@ -28,6 +29,7 @@ describe('PublishJobService', () => {
           provide: getRepositoryToken(JobDbModel),
           useValue: { readById: jest.fn() },
         },
+        SqsService,
       ],
     }).compile();
 

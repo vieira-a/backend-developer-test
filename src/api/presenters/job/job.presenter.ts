@@ -4,11 +4,15 @@ import {
   ArchiveJobResponse,
   CreateJobResponse,
   DeleteJobResponse,
+  FeedJobsResponse,
   PublishJobResponse,
   ReadJobResponse,
   UpdateJobResponse,
 } from '../../../api/transports/job/responses';
-import { ReadJobOutput } from '../../../application/job/outputs';
+import {
+  FeedJobsOutput,
+  ReadJobOutput,
+} from '../../../application/job/outputs';
 
 @Injectable()
 export class JobPresenter {
@@ -79,6 +83,16 @@ export class JobPresenter {
     return {
       success: true,
       message: 'A publicação foi atualizada com sucesso',
+    };
+  }
+
+  async feedJobResult(output: FeedJobsOutput[]): Promise<FeedJobsResponse> {
+    if (!output || output.length === 0) {
+      return null;
+    }
+
+    return {
+      data: output,
     };
   }
 }

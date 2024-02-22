@@ -2,37 +2,47 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import {
-  CreateJobDraftController,
-  DeleteJobDraftController,
-  UpdateJobDraftController,
+  ArchiveJobController,
+  CreateJobController,
+  DeleteJobController,
+  PublishJobController,
+  ReadJobByIdController,
+  UpdateJobController,
 } from '../api/controllers/job';
 import { JobPresenter } from '../api/presenters/job';
-import { JobResponseMapper } from '../api/transports/job/mapper';
 import {
-  CreateJobDraftService,
-  DeleteJobDraftService,
-  ReadJobDraftByIdService,
-  UpdateJobDraftService,
+  ArchiveJobService,
+  CreateJobService,
+  DeleteJobService,
+  PublishJobService,
+  ReadJobByIdService,
+  UpdateJobService,
 } from '../application/job/services';
-import { JobDbRepository } from '../infrastructure/access/repositories/job';
-import { JobModel } from '../infrastructure/access/repositories/job/models';
+import { DbTypeOrmRepository } from '../infrastructure/access/repositories/job/db-typeorm.repository';
+import { JobDbModel } from '../infrastructure/access/repositories/job/models/job-db.model';
+import { SqsService } from '../infrastructure/aws/sqs/sqs.service';
 import { CompanyModule } from './company.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([JobModel]), CompanyModule],
+  imports: [TypeOrmModule.forFeature([JobDbModel]), CompanyModule],
   controllers: [
-    CreateJobDraftController,
-    UpdateJobDraftController,
-    DeleteJobDraftController,
+    CreateJobController,
+    ReadJobByIdController,
+    DeleteJobController,
+    ArchiveJobController,
+    UpdateJobController,
+    PublishJobController,
   ],
   providers: [
-    CreateJobDraftService,
-    ReadJobDraftByIdService,
-    UpdateJobDraftService,
-    DeleteJobDraftService,
-    JobDbRepository,
+    ArchiveJobService,
+    CreateJobService,
+    DeleteJobService,
+    ReadJobByIdService,
+    PublishJobService,
+    UpdateJobService,
+    SqsService,
     JobPresenter,
-    JobResponseMapper,
+    DbTypeOrmRepository,
   ],
 })
 export class JobModule {}

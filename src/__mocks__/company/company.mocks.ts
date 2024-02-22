@@ -1,6 +1,6 @@
-import { CompanyModel } from '../../infrastructure/access/repositories/company/models';
+import { CompanyDbModel } from '../../infrastructure/access/repositories/company/models';
 
-export const companiesMock: CompanyModel[] = [
+export const companiesMock: CompanyDbModel[] = [
   {
     id: 'e76c5b34-230f-48d3-9ae5-3cb67f141903',
     name: 'Contoso',

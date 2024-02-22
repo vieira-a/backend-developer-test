@@ -6,24 +6,22 @@ import {
   ReadCompanyByIdController,
 } from '../api/controllers/company';
 import { CompanyPresenter } from '../api/presenters/company';
-import { CompanyResponseMapper } from '../api/transports/company/mappers';
 import {
   ReadCompaniesService,
   ReadCompanyByIdService,
 } from '../application/company/services';
-import { CompanyDbRepository } from '../infrastructure/access/repositories/company';
-import { CompanyModel } from '../infrastructure/access/repositories/company/models';
+import { DbTypeOrmCompanyRepository } from '../infrastructure/access/repositories/company';
+import { CompanyDbModel } from '../infrastructure/access/repositories/company/models';
 
 @Module({
   controllers: [ReadCompaniesController, ReadCompanyByIdController],
   providers: [
     ReadCompaniesService,
     ReadCompanyByIdService,
-    CompanyDbRepository,
+    DbTypeOrmCompanyRepository,
     CompanyPresenter,
-    CompanyResponseMapper,
   ],
-  imports: [TypeOrmModule.forFeature([CompanyModel])],
-  exports: [ReadCompanyByIdService, CompanyDbRepository],
+  imports: [TypeOrmModule.forFeature([CompanyDbModel])],
+  exports: [ReadCompanyByIdService, DbTypeOrmCompanyRepository],
 })
 export class CompanyModule {}

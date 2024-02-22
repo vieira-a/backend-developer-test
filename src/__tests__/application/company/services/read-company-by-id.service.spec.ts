@@ -3,8 +3,8 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { companiesMock } from '../../../../__mocks__/company';
 import { ReadCompanyByIdService } from '../../../../application/company/services';
-import { CompanyDbRepository } from '../../../../infrastructure/access/repositories/company';
-import { CompanyModel } from '../../../../infrastructure/access/repositories/company/models';
+import { DbTypeOrmCompanyRepository } from '../../../../infrastructure/access/repositories/company';
+import { CompanyDbModel } from '../../../../infrastructure/access/repositories/company/models';
 
 describe('ReadCompanyByIdService', () => {
   let service: ReadCompanyByIdService;
@@ -13,9 +13,9 @@ describe('ReadCompanyByIdService', () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       providers: [
         ReadCompanyByIdService,
-        CompanyDbRepository,
+        DbTypeOrmCompanyRepository,
         {
-          provide: getRepositoryToken(CompanyModel),
+          provide: getRepositoryToken(CompanyDbModel),
           useValue: {
             execute: jest.fn(),
           },
@@ -31,20 +31,20 @@ describe('ReadCompanyByIdService', () => {
   });
 
   it('should return a company by id on success', async () => {
-    jest.spyOn(service, 'execute').mockResolvedValue(companiesMock[0]);
-    const result = await service.execute(companiesMock[0].id);
+    jest.spyOn(service, 'readById').mockResolvedValue(companiesMock[0]);
+    const result = await service.readById(companiesMock[0].id);
     expect(result).toEqual(companiesMock[0]);
   });
 
   it('should return null if not found company by id', async () => {
-    jest.spyOn(service, 'execute').mockResolvedValue(null);
-    const result = await service.execute('non-existent-uuid');
+    jest.spyOn(service, 'readById').mockResolvedValue(null);
+    const result = await service.readById('non-existent-uuid');
     expect(result).toEqual(null);
   });
 
   it('should return an error if service throws', async () => {
-    jest.spyOn(service, 'execute').mockRejectedValueOnce(new Error());
-    await expect(service.execute(companiesMock[0].id)).rejects.toThrow(
+    jest.spyOn(service, 'readById').mockRejectedValueOnce(new Error());
+    await expect(service.readById(companiesMock[0].id)).rejects.toThrow(
       new Error(),
     );
   });

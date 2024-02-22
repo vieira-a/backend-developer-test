@@ -1,3 +1,5 @@
+import 'dotenv/config';
+
 import {
   ArgumentsHost,
   Catch,
@@ -10,9 +12,12 @@ import { HttpAdapterHost } from '@nestjs/core';
 import { Request } from 'express';
 import { QueryFailedError } from 'typeorm';
 
+import { DomainException } from '../../../domain/exceptions/domain.exceptions';
+
 @Catch()
 export class GlobalExceptionFilter implements ExceptionFilter {
   private readonly httpAdapter: any;
+  private server: string;
 
   constructor(
     private readonly httpAdapterHost: HttpAdapterHost,
@@ -22,6 +27,12 @@ export class GlobalExceptionFilter implements ExceptionFilter {
   }
 
   catch(exception: any, host: ArgumentsHost): void {
+    if (process.env.ENVIRONMENT === 'develop') {
+      this.server = `${process.env.API_HOST_DEVELOP}:${process.env.API_PORT}`;
+    } else if (process.env.ENVIRONMENT === 'production') {
+      this.server = process.env.API_HOST_PRODUCTION;
+    }
+
     const { httpAdapter } = this;
 
     const response = host.switchToHttp().getResponse();
@@ -32,6 +43,15 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     let message = 'Internal Server Error';
 
     if (exception instanceof HttpException) {
+      httpStatus = exception.getStatus();
+      message = exception.message;
+    } else if (exception.status) {
+      httpStatus = exception.status;
+      message =
+        exception.message || 'Houve um erro interno ao processar solicitação';
+    }
+
+    if (exception instanceof DomainException) {
       httpStatus = exception.getStatus();
       message = exception.message;
     } else if (exception.status) {
@@ -64,6 +84,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       statusCode: httpStatus,
       timestamp: new Date().toLocaleTimeString(),
       message: exception.response ? exception.response.message : message,
+      route: `${this.server}${request.originalUrl}`,
     };
 
     if (httpAdapter && httpAdapter.reply) {

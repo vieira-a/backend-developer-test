@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common';
 
-import { Company } from '../../../domain/entities/company';
-import { IReadCompanyByIdUseCase } from '../../../domain/usecases/company';
-import { CompanyDbRepository } from '../../../infrastructure/access/repositories/company';
+import { CompanyEntity } from '../../../domain/company/entities';
+import { ReadCompanyById } from '../../../domain/company/usecases';
+import { DbTypeOrmCompanyRepository } from '../../../infrastructure/access/repositories/company';
 
 @Injectable()
-export class ReadCompanyByIdService implements IReadCompanyByIdUseCase {
-  constructor(private readonly _companyDbRepository: CompanyDbRepository) {}
-  async execute(id: string): Promise<Company> {
-    return await this._companyDbRepository.readById(id);
+export class ReadCompanyByIdService implements ReadCompanyById {
+  constructor(private readonly _repository: DbTypeOrmCompanyRepository) {}
+
+  async readById(id: string): Promise<CompanyEntity> {
+    return await this._repository.readById(id);
   }
 }

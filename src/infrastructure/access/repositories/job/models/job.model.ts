@@ -8,15 +8,14 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { CreateJobDraftInput } from '../../../../../application/job/inputs';
-import { CompanyModel } from '../../company/models';
+import { CompanyDbModel } from '../../company/models';
 
 @Entity('jobs')
-export class JobModel extends CreateJobDraftInput {
+export class JobModel {
   @PrimaryGeneratedColumn('uuid')
   public id?: string;
 
-  @ManyToOne(() => CompanyModel, (company) => company.jobs)
+  @ManyToOne(() => CompanyDbModel, (company) => company.jobs)
   @JoinColumn({ name: 'company_id' })
   public companyId: string;
 

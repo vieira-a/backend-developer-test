@@ -1,5 +1,4 @@
-import { JobStatus } from 'src/domain/enums';
-
+import { JobStatus } from '../../../domain/enums';
 import {
   ArchiveJob,
   CreateJob,

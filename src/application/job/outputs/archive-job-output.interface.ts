@@ -1,4 +1,4 @@
-export interface ArchiveJobOutput {
+export class ArchiveJobOutput {
   success: boolean;
   message?: string;
 }

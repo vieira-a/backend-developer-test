@@ -8,9 +8,9 @@ import {
   PublishJobService,
   ReadJobByIdService,
 } from '../../../../application/job/services';
-import { DbTypeOrmRepository } from '../../../../infrastructure/access/repositories/job';
-import { JobDbModel } from '../../../../infrastructure/access/repositories/job/models';
 import { SqsService } from '../../../../infrastructure/aws/sqs/sqs.service';
+import { DbTypeOrmRepository } from '../../../../infrastructure/database/access/repositories/job';
+import { JobDbModel } from '../../../../infrastructure/database/access/repositories/job/models';
 
 describe('PublishJobController', () => {
   let controller: PublishJobController;

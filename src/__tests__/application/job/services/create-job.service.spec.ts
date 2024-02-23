@@ -5,10 +5,10 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { jobMock } from '../../../../__mocks__/job';
 import { ReadCompanyByIdService } from '../../../../application/company/services';
 import { CreateJobService } from '../../../../application/job/services';
-import { DbTypeOrmCompanyRepository } from '../../../../infrastructure/access/repositories/company';
-import { CompanyDbModel } from '../../../../infrastructure/access/repositories/company/models';
-import { DbTypeOrmRepository } from '../../../../infrastructure/access/repositories/job/db-typeorm.repository';
-import { JobDbModel } from '../../../../infrastructure/access/repositories/job/models/job-db.model';
+import { DbTypeOrmCompanyRepository } from '../../../../infrastructure/database/access/repositories/company';
+import { CompanyDbModel } from '../../../../infrastructure/database/access/repositories/company/models';
+import { DbTypeOrmRepository } from '../../../../infrastructure/database/access/repositories/job/db-typeorm.repository';
+import { JobDbModel } from '../../../../infrastructure/database/access/repositories/job/models/job-db.model';
 
 describe('CreateJobService', () => {
   let service: CreateJobService;

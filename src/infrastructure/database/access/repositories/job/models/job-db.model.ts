@@ -8,8 +8,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { CreateJobInput } from '../../../../../application/job/inputs';
-import { JobStatus } from '../../../../../domain/enums';
+import { CreateJobInput } from '../../../../../../application/job/inputs';
+import { JobStatus } from '../../../../../../domain/enums';
 import { CompanyDbModel } from '../../company/models';
 
 @Entity('jobs')

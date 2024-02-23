@@ -10,8 +10,8 @@ import {
   ReadCompaniesService,
   ReadCompanyByIdService,
 } from '../application/company/services';
-import { DbTypeOrmCompanyRepository } from '../infrastructure/access/repositories/company';
-import { CompanyDbModel } from '../infrastructure/access/repositories/company/models';
+import { DbTypeOrmCompanyRepository } from '../infrastructure/database/access/repositories/company';
+import { CompanyDbModel } from '../infrastructure/database/access/repositories/company/models';
 
 @Module({
   controllers: [ReadCompaniesController, ReadCompanyByIdController],

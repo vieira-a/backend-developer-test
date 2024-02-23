@@ -3,9 +3,9 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { feedMock } from '../../../../__mocks__/job';
 import { FeedJobsService } from '../../../../application/job/services';
-import { JobDbModel } from '../../../../infrastructure/access/repositories/job/models';
 import { S3Service } from '../../../../infrastructure/aws/s3/s3.service';
 import { RedisCacheRepository } from '../../../../infrastructure/cache/redis';
+import { JobDbModel } from '../../../../infrastructure/database/access/repositories/job/models';
 
 describe('ReadJobByIdService', () => {
   let service: FeedJobsService;

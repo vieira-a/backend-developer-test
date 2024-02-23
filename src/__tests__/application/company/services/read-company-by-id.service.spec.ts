@@ -3,8 +3,8 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { companiesMock } from '../../../../__mocks__/company';
 import { ReadCompanyByIdService } from '../../../../application/company/services';
-import { DbTypeOrmCompanyRepository } from '../../../../infrastructure/access/repositories/company';
-import { CompanyDbModel } from '../../../../infrastructure/access/repositories/company/models';
+import { DbTypeOrmCompanyRepository } from '../../../../infrastructure/database/access/repositories/company';
+import { CompanyDbModel } from '../../../../infrastructure/database/access/repositories/company/models';
 
 describe('ReadCompanyByIdService', () => {
   let service: ReadCompanyByIdService;

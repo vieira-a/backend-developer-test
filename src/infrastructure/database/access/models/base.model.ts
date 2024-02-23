@@ -4,7 +4,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { EntityBaseModel } from '../../../application/models';
+import { EntityBaseModel } from '../../../../application/models';
 
 export abstract class BaseModel extends EntityBaseModel {
   @PrimaryGeneratedColumn('uuid')

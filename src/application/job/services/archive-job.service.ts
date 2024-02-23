@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { JobStatus } from '../../../domain/enums';
 import { JobEntity } from '../../../domain/job/entities';
 import { ArchiveJob, ValidateArchive } from '../../../domain/job/usecases';
-import { DbTypeOrmRepository } from '../../../infrastructure/access/repositories/job';
+import { DbTypeOrmRepository } from '../../../infrastructure/database/access/repositories/job';
 import { ArchiveJobInput } from '../inputs';
 import { ReadJobByIdService } from './read-job-by-id.service';
 

@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { ReadCompanyByIdService } from '../../../application/company/services';
 import { JobEntity } from '../../../domain/job/entities/job.entity';
 import { CreateJob } from '../../../domain/job/usecases/create-job.interface';
-import { DbTypeOrmRepository } from '../../../infrastructure/access/repositories/job/db-typeorm.repository';
+import { DbTypeOrmRepository } from '../../../infrastructure/database/access/repositories/job/db-typeorm.repository';
 
 @Injectable()
 export class CreateJobService implements CreateJob {

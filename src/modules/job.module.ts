@@ -20,10 +20,10 @@ import {
   ReadJobByIdService,
   UpdateJobService,
 } from '../application/job/services';
-import { DbTypeOrmRepository } from '../infrastructure/access/repositories/job/db-typeorm.repository';
-import { JobDbModel } from '../infrastructure/access/repositories/job/models/job-db.model';
 import { SqsService } from '../infrastructure/aws/sqs/sqs.service';
 import { CacheModule } from '../infrastructure/cache/cache.module';
+import { DbTypeOrmRepository } from '../infrastructure/database/access/repositories/job/db-typeorm.repository';
+import { JobDbModel } from '../infrastructure/database/access/repositories/job/models/job-db.model';
 import { CompanyModule } from './company.module';
 
 @Module({

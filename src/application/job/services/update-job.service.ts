@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { UpdateJobEntity } from '../../../domain/job/entities';
 import { UpdateJob, ValidateUpdate } from '../../../domain/job/usecases';
-import { DbTypeOrmRepository } from '../../../infrastructure/access/repositories/job';
+import { DbTypeOrmRepository } from '../../../infrastructure/database/access/repositories/job';
 import { UpdateJobInput } from '../inputs';
 import { ReadJobByIdService } from './read-job-by-id.service';
 

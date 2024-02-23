@@ -6,8 +6,8 @@ import {
   DeleteJobService,
   ReadJobByIdService,
 } from '../../../../application/job/services';
-import { DbTypeOrmRepository } from '../../../../infrastructure/access/repositories/job';
-import { JobDbModel } from '../../../../infrastructure/access/repositories/job/models';
+import { DbTypeOrmRepository } from '../../../../infrastructure/database/access/repositories/job';
+import { JobDbModel } from '../../../../infrastructure/database/access/repositories/job/models';
 
 describe('DeleteJobService', () => {
   let service: DeleteJobService;

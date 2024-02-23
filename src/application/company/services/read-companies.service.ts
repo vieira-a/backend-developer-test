@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { CompanyEntity } from '../../../domain/company/entities';
 import { ReadCompanies } from '../../../domain/company/usecases';
-import { DbTypeOrmCompanyRepository } from '../../../infrastructure/access/repositories/company';
+import { DbTypeOrmCompanyRepository } from '../../../infrastructure/database/access/repositories/company';
 
 @Injectable()
 export class ReadCompaniesService implements ReadCompanies {

@@ -1,50 +1,55 @@
 <p align="center">
-  <h5>Desafio técnico para Desenvolvedor Backend</h5>
-  <h1>Gerenciamento de postagens de emprego</h1>
+  <h5>Technical challenge for Backend Developer</h5>
+  <h1>Job posting management</h1>
 </p>
 
 <br>
 
 <p align="center">
-  <a href="#Project">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#Recursos">Recursos</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#Tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#Metodologias">Metodologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#Funcionalidades">Funcionalidades</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#Amostras">Amostras</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#Como utilizar">Como utilizar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#Project">Project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#Resources">Resources</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#Technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#Methodologies">Methodologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#Functionalities">Functionalities</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#Samples">Samples</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#How to use">How to use</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#Bonus question">Bonus question</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 </p>
 
 <br>
 
 # Project
 
-O principal objetivo deste projeto é prover uma aplicação para gerenciamento de postagens de emprego. Através dela será possível criar novas postagens, bem como gerenciá-las.
+The main objective of this project is to provide an application for managing job postings. Through it it will be possible to create new posts, as well as manage them.
 
-# Recursos
+**Backlog**
 
-**Principais casos de uso**
+Please, access the [backlog](https://trello.com/invite/b/W8FrIRWw/ATTI1cf92d52548a235e37f97341200912a6F524AA15/plooral-avaliacao-tecnica-para-desenvolvedor-backend) which I made available for assessment of the execution tasks of this technical test.
 
-- Criar uma nova postagem de emprego: realiza um cadastro básico de postagens de emprego com o status padrão "draft".
-- Atualizar uma postagem de emprego: atualiza campos `title, description, location`.
-- Deletar uma postagem de emprego: funcionalidade para excluir uma postagem.
-- Publicar uma postagem de emprego: ato de publicar um rascunho de postagem. Apenas postagens com o status `draft` ou `archived` podem ser publicadas.
-- Arquivar uma postagem de emprego: ato de arquivar uma postagem já publicada
-- Exibir um feed de postagens de emprego publicadas: carrega o feed de empregos através do **Redis**, que é atualizado de acordo com o bucket S3 da AWS.
+# Resources
 
-**Casos de uso acessórios**
+**Main usecases**
 
-- Procurar postagem de emprego por ID
-- Listar todas as empresas
-- Procurar empresa por ID
+- Create a new job posting: performs a basic registration of job postings with the default status of "draft".
+- Update a job posting: updates `title, description, location` fields.
+- Delete a job post: functionality to delete a post.
+- Publish a job posting: the act of publishing a draft post. Only posts with the status `draft` or `archived` can be published.
+- Archive a job post: act of archiving an already published post
+- View a feed of published job postings: Loads the job feed through **Redis**, which is updated according to the AWS S3 bucket.
+
+**Accessories usecases**
+
+- Search job posting by ID
+- List all companies
+- Search company by ID
 
 **Testes unitários**
 
-Foram aplicados testes unitários nas camadas de aplicação (serviços) e apresentação (controladores).
+Unit tests were applied to the application (services) and presentation (controllers) layers.
 
-Os testes unitários podem ser executados através do comando `npm run test`
+Unit tests can be run using the `npm run test` command
 
-# Tecnologias
+# Technologies
 
 - NPM
 - Node.js
@@ -52,7 +57,7 @@ Os testes unitários podem ser executados através do comando `npm run test`
 - Nest Logger
 - Nest Global exception filter
 - Nest class-validator
-- Arquitetura modular do Nest
+- Mudule architecture
 - PostgreSQL
 - TypeORM
 - AWS SQS
@@ -64,9 +69,9 @@ Os testes unitários podem ser executados através do comando `npm run test`
 - Express
 - ESLint
 
-# Metodologias
+# Methodologies
 
-Foram aplicadas boas práticas de design e arquitetura de projetos como:
+Good design and project architecture practices were applied, such as:
 
 - Clean Architecture
 - DDD
@@ -78,15 +83,15 @@ Foram aplicadas boas práticas de design e arquitetura de projetos como:
 - Dependency Injection
 - Use Cases
 
-A estrutura do projeto, bem como documentação sobre casos de uso e diagramas de contexto, podem ser apreciados no diretório de [artefatos](https://github.com/vieira-a/backend-developer-test/tree/andersonvieira/artifacts)
+The project structure, as well as documentation on use cases and context diagrams, can be seen in the [artifacts](https://github.com/vieira-a/backend-developer-test/tree/andersonvieira/artifacts)
 
-# Funcionalidades
+# Functionalities
 
-Os principais requisitos de funcionalidades estão descritas em:
+The main functionality requirements are described in:
 
 [Requeriments](https://github.com/vieira-a/backend-developer-test/blob/master/README.md)
 
-# Amostras
+# Samples
 
 - Swagger
 
@@ -94,24 +99,24 @@ Os principais requisitos de funcionalidades estão descritas em:
   <img alt="Swagger screenshot image" src="artifacts/swagger_screen.png" width="100%">
 </p>
 
-# Como utilizar
+# How to use
 
-**1. Requisitos**
+**1. Requeriments**
 
-Certifique-se de possuir os itens abaixo instalados:
+Make sure you have the following items installed:
 
 - [Node.js](https://nodejs.org/en/download)
 - [NPM](https://docs.npmjs.com/)
 - [Docker](https://www.docker.com/)
 - [Git](https://git-scm.com)
 
-**2. Clone este repositório**
+**2. Clone the repository**
 
 `git@github.com:vieira-a/backend-developer-test.git`
 
-**3. Configure variáveis de ambiente**
+**3. Set environment variables**
 
-- Crie um arquivo `.env` na raiz do projeto de acordo com o arquivo `.env.example`:
+- Create a `.env` file in the directory project root according with `.env.example`:
 
 ```
 API_HOST_DEVELOP=
@@ -134,33 +139,33 @@ REDIS_URL=
 REDIS_PORT=
 ```
 
-Esses dados serão utilizados para criar o containeres do banco de dados **PostgreSQL**, da interface de gerenciamento do banco de dados, o **pgAdmin**, uma instância do **Redis**, e também será necessário para realizar as integrações com os serviços da Amazon Web Services - AWS.
+This data will be used to create the **PostgreSQL** database container, the database management interface, **pgAdmin**, an instance of **Redis**, and will also be necessary to carry out the integrations with Amazon Web Services - AWS services.
 
-**4. Crie e execute os containers necessários**
+**4. Create and run the necessary containers**
 
 `docker-compose up -d`
 
-**5. Instale as dependências do projeto**
+**5. Install project dependencies**
 
 `npm install`
 
-**6. Crie o modelo de tabelas no banco de dados**
+**6. Create the table model in the database**
 
-Execute a query contida _src/infrastructure/database/sql/scripts/models.sql_ para criar as tabelas no banco de dados.
+Execute the query contained in _src/infrastructure/database/sql/scripts/models.sql_ to create the tables in the database.
 
-**7. Inicialize a aplicação**
+**7. Initialize the application**
 
 `npm run start:dev`
 
 **8. AWS Lambda**
 
-O arquivo de exemplo da função lambda está localizada em: `src/infrastructure/aws/lambda/lambda_function.zip`
+The lambda function example file is located at: `src/infrastructure/aws/lambda/lambda_function.zip`
 
-Para executá-la, siga os passos necessários:
+To execute it, follow the necessary steps:
 
-- Crie uma nova função Lambda no ambiente da AWS Lambda, observando todas as configurações de papeis e funções necessárias;
+- Create a new Lambda function in the AWS Lambda environment, observing all necessary role and function configurations;
 
-- Configure as variáveis de ambiente da lambda AWS com as seguintes chaves;
+- Configure the AWS lambda environment variables with the following keys;
 
 ```
 AWS_SQS_URL=
@@ -171,9 +176,31 @@ AWS_BUCKET=
 DB_CONNECTION_STRING=
 ```
 
-- Importe o arquivo _lambda_function.zip_ para a sua função Lambda.
+- Import the _lambda_function.zip_ file into your Lambda function.
 
-**9. Acesso**
+**9. Access**
 
 - API: http://localhost:3000/api/v1
-- Documentação: http://localhost:3000/api/v1/docs
+- Documentation: http://localhost:3000/api/v1/docs
+
+# Bonus question
+
+To mitigate overload problems, it is necessary to provision resources that provide scalability to the application. For this case, I think scaling horizontally would be the best scenario. To this end, the solutions would be based on a microservices architecture, messaging systems, load balancing and caching. Below is a brief explanation of how the implementations would help scale the application with resilience:
+
+**Microservices Architecture**
+
+It would be possible to divide responsibilities, with each microservice responsible for a specific part of the application, making it easier to scale parts of the application that are under greater demand without having to scale the entire system. Furthermore, microservices can be developed, deployed and scaled independently, allowing quick updates and fault mitigation without affecting the system as a whole.
+
+**Message service**
+
+A messaging service could reduce coupling, as messaging allows application components to communicate asynchronously, reducing direct dependencies between services and improving resilience.
+
+Message queues can act as a buffer for traffic spikes, ensuring that systems are not overloaded and can process requests in a controlled manner. Additionally, with messaging systems, you can add consumers to queues to process messages faster during peak demand, providing effective horizontal scalability.
+
+**Load Balancing**
+
+Intelligent Traffic Distribution: Load balancing contributes to intelligent traffic distribution, handling user requests between different instances or servers, avoiding overload points and optimizing resource usage. Furthermore, it contributes to the detection of failures, being able to redirect traffic from instances with problems to healthy ones, keeping the application accessible.
+
+**Cache**
+
+Distributed Cache: to reduce the load on databases and endpoints.

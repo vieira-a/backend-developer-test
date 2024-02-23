@@ -1,10 +1,12 @@
 import { Logger, Module } from '@nestjs/common';
 
-import { DataModule } from '../infrastructure/data/data.module';
-import { CompanyModule } from '../modules';
+import { AwsModule } from '../infrastructure/aws/aws.module';
+import { CacheModule } from '../infrastructure/cache/cache.module';
+import { DataModule } from '../infrastructure/database/data.module';
+import { CompanyModule, JobModule } from '../modules';
 
 @Module({
-  imports: [DataModule, CompanyModule],
+  imports: [DataModule, AwsModule, CompanyModule, JobModule, CacheModule],
   providers: [Logger],
 })
 export class AppModule {}

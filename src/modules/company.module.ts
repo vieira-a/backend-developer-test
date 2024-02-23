@@ -1,21 +1,27 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { CompanyController } from '../api/controllers/company';
+import {
+  ReadCompaniesController,
+  ReadCompanyByIdController,
+} from '../api/controllers/company';
 import { CompanyPresenter } from '../api/presenters/company';
-import { CompanyResponseMapper } from '../api/transports/company/mappers';
-import { ReadCompaniesService } from '../application/company/services';
-import { CompanyDbRepository } from '../infrastructure/access/repositories/company';
-import { CompanyModel } from '../infrastructure/access/repositories/company/models';
+import {
+  ReadCompaniesService,
+  ReadCompanyByIdService,
+} from '../application/company/services';
+import { DbTypeOrmCompanyRepository } from '../infrastructure/database/access/repositories/company';
+import { CompanyDbModel } from '../infrastructure/database/access/repositories/company/models';
 
 @Module({
-  controllers: [CompanyController],
+  controllers: [ReadCompaniesController, ReadCompanyByIdController],
   providers: [
     ReadCompaniesService,
-    CompanyDbRepository,
+    ReadCompanyByIdService,
+    DbTypeOrmCompanyRepository,
     CompanyPresenter,
-    CompanyResponseMapper,
   ],
-  imports: [TypeOrmModule.forFeature([CompanyModel])],
+  imports: [TypeOrmModule.forFeature([CompanyDbModel])],
+  exports: [ReadCompanyByIdService, DbTypeOrmCompanyRepository],
 })
 export class CompanyModule {}

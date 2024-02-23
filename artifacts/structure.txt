@@ -1,0 +1,210 @@
+.
+├── api
+│   ├── app.module.ts
+│   ├── controllers
+│   │   ├── company
+│   │   │   ├── index.ts
+│   │   │   ├── read-companies.controller.ts
+│   │   │   └── read-company-by-id.controller.ts
+│   │   └── job
+│   │       ├── archive-job.controller.ts
+│   │       ├── create-job.controller.ts
+│   │       ├── delete-job.controller.ts
+│   │       ├── feed-jobs.controller.ts
+│   │       ├── index.ts
+│   │       ├── publish-job.controller.ts
+│   │       ├── read-job-by-id.controller.ts
+│   │       └── update-job.controller.ts
+│   ├── main.ts
+│   ├── presenters
+│   │   ├── company
+│   │   │   ├── company.presenter.ts
+│   │   │   └── index.ts
+│   │   └── job
+│   │       ├── index.ts
+│   │       └── job.presenter.ts
+│   └── transports
+│       ├── company
+│       │   ├── mappers
+│       │   │   ├── companies-response.mapper.ts
+│       │   │   ├── company-response.mapper.ts
+│       │   │   └── index.ts
+│       │   └── responses
+│       │       ├── index.ts
+│       │       ├── read-companies.response.ts
+│       │       └── read-company.response.ts
+│       ├── exceptions
+│       │   └── global-exception.filter.ts
+│       └── job
+│           ├── requests
+│           │   ├── create-job.request.ts
+│           │   ├── index.ts
+│           │   └── update-job.request.ts
+│           └── responses
+│               ├── archive-job.response.ts
+│               ├── create-job.response.ts
+│               ├── delete-job.response.ts
+│               ├── feed-jobs.response.ts
+│               ├── index.ts
+│               ├── publish-job.response.ts
+│               ├── read-job.response.ts
+│               └── update-job.response.ts
+├── application
+│   ├── company
+│   │   ├── inputs
+│   │   │   ├── create-company.input.ts
+│   │   │   └── index.ts
+│   │   ├── outputs
+│   │   │   ├── index.ts
+│   │   │   ├── read-companies.output.ts
+│   │   │   └── read-company.output.ts
+│   │   ├── services
+│   │   │   ├── index.ts
+│   │   │   ├── read-companies.service.ts
+│   │   │   └── read-company-by-id.service.ts
+│   │   └── usecases
+│   │       ├── company-db-repository.interface.ts
+│   │       └── index.ts
+│   ├── job
+│   │   ├── inputs
+│   │   │   ├── archive-job.input.ts
+│   │   │   ├── create-job.input.ts
+│   │   │   ├── index.ts
+│   │   │   ├── publish-job.input.ts
+│   │   │   └── update-job.input.ts
+│   │   ├── outputs
+│   │   │   ├── archive-job-output.interface.ts
+│   │   │   ├── create-job-output.interface.ts
+│   │   │   ├── delete-job-output.interface.ts
+│   │   │   ├── feed-jobs-output.interface.ts
+│   │   │   ├── index.ts
+│   │   │   ├── publish-job-output.interface.ts
+│   │   │   ├── read-job-output.interface.ts
+│   │   │   └── update-job-output.interface.ts
+│   │   ├── services
+│   │   │   ├── archive-job.service.ts
+│   │   │   ├── create-job.service.ts
+│   │   │   ├── delete-job.service.ts
+│   │   │   ├── feed-jobs.service.ts
+│   │   │   ├── index.ts
+│   │   │   ├── publish-job.service.ts
+│   │   │   ├── read-job-by-id.service.ts
+│   │   │   └── update-job.service.ts
+│   │   └── usecases
+│   │       ├── index.ts
+│   │       ├── job-cache-repository.interface.ts
+│   │       └── job-db-repository.interface.ts
+│   └── models
+│       ├── entity-base.model.ts
+│       └── index.ts
+├── domain
+│   ├── company
+│   │   ├── entities
+│   │   │   ├── company.entity.ts
+│   │   │   └── index.ts
+│   │   ├── exceptions
+│   │   └── usecases
+│   │       ├── index.ts
+│   │       ├── read-companies.interface.ts
+│   │       └── read-company-by-id.interface.ts
+│   ├── entities
+│   │   └── entity.base.ts
+│   ├── enums
+│   │   ├── index.ts
+│   │   └── job-status.enum.ts
+│   ├── exceptions
+│   │   └── domain.exceptions.ts
+│   └── job
+│       ├── entities
+│       │   ├── feed-job.entity.ts
+│       │   ├── index.ts
+│       │   ├── job.entity.ts
+│       │   └── update-job.entity.ts
+│       ├── exceptions
+│       │   └── job.exceptions.ts
+│       └── usecases
+│           ├── archive-job.interface.ts
+│           ├── create-job.interface.ts
+│           ├── delete-job.interface.ts
+│           ├── feed-jobs.interface.ts
+│           ├── index.ts
+│           ├── publish-job.interface.ts
+│           ├── read-job-by-id.interface.ts
+│           └── update-job.interface.ts
+├── infrastructure
+│   ├── aws
+│   │   ├── aws.module.ts
+│   │   ├── s3
+│   │   │   └── s3.service.ts
+│   │   └── sqs
+│   │       └── sqs.service.ts
+│   ├── cache
+│   │   ├── cache.module.ts
+│   │   └── redis
+│   │       ├── index.ts
+│   │       └── redis-cache.repository.ts
+│   └── database
+│       ├── access
+│       │   ├── models
+│       │   │   ├── base.model.ts
+│       │   │   └── index.ts
+│       │   └── repositories
+│       │       ├── company
+│       │       │   ├── db-typeorm-company.repository.ts
+│       │       │   ├── index.ts
+│       │       │   └── models
+│       │       │       ├── company-db.model.ts
+│       │       │       └── index.ts
+│       │       └── job
+│       │           ├── db-typeorm-job.repository.ts
+│       │           ├── index.ts
+│       │           └── models
+│       │               ├── index.ts
+│       │               └── job-db.model.ts
+│       ├── data.module.ts
+│       ├── settings
+│       │   └── postgresql.settings.ts
+│       └── sql
+│           └── scripts
+│               └── models.sql
+├── __mocks__
+│   ├── company
+│   │   ├── company.mocks.ts
+│   │   └── index.ts
+│   └── job
+│       ├── index.ts
+│       └── job.mocks.ts
+├── modules
+│   ├── company.module.ts
+│   ├── index.ts
+│   └── job.module.ts
+├── structure.txt
+└── __tests__
+    ├── api
+    │   ├── company
+    │   │   └── controller
+    │   │       ├── read-companies.controller.spec.ts
+    │   │       └── read-company-by-id.controller.spec.ts
+    │   └── job
+    │       └── controller
+    │           ├── archive-job.controller.spec.ts
+    │           ├── create-job.controller.spec.ts
+    │           ├── delete-job.controller.spec.ts
+    │           ├── publish-job.controller.spec.ts
+    │           └── update-job.controller.spec.ts
+    └── application
+        ├── company
+        │   └── services
+        │       ├── read-companies.service.spec.ts
+        │       └── read-company-by-id.service.spec.ts
+        └── job
+            └── services
+                ├── archive-job.service.spec.ts
+                ├── create-job.service.spec.ts
+                ├── delete-job.service.spec.ts
+                ├── feed-jobs.service.spec.ts
+                ├── publish-job.service.spec.ts
+                ├── read-job-by-id.service.spec.ts
+                └── update-job.service.spec.ts
+
+71 directories, 136 files

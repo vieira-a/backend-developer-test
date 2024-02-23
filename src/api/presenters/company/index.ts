@@ -1,1 +1,1 @@
-export * from './read-companies.presenter';
+export * from './company.presenter';

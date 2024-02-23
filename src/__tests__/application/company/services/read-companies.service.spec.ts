@@ -3,8 +3,8 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { companiesMock } from '../../../../__mocks__/company';
 import { ReadCompaniesService } from '../../../../application/company/services/read-companies.service';
-import { CompanyDbRepository } from '../../../../infrastructure/access/repositories/company/company-db.repository';
-import { CompanyModel } from '../../../../infrastructure/access/repositories/company/models/company.model';
+import { DbTypeOrmCompanyRepository } from '../../../../infrastructure/database/access/repositories/company/db-typeorm-company.repository';
+import { CompanyDbModel } from '../../../../infrastructure/database/access/repositories/company/models/company-db.model';
 
 describe('ReadCompaniesService', () => {
   let service: ReadCompaniesService;
@@ -13,9 +13,9 @@ describe('ReadCompaniesService', () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       providers: [
         ReadCompaniesService,
-        CompanyDbRepository,
+        DbTypeOrmCompanyRepository,
         {
-          provide: getRepositoryToken(CompanyModel),
+          provide: getRepositoryToken(CompanyDbModel),
           useValue: {
             readAll: jest.fn(),
           },

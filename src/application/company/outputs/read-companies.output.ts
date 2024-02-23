@@ -1,7 +1,11 @@
-import { Company } from '../../../domain/entities';
+import { ApiProperty } from '@nestjs/swagger';
 
-export class ReadCompanyOutput extends Company {
+import { CompanyEntity } from '../../../domain/company/entities';
+
+export class ReadCompaniesOutput extends CompanyEntity {
+  @ApiProperty()
   id?: string;
 
+  @ApiProperty()
   name: string;
 }

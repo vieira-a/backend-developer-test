@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UpdateJobInput } from 'src/application/job/inputs';
-import { JobStatus } from 'src/domain/enums';
 import { DeleteResult, Repository } from 'typeorm';
 
+import { UpdateJobInput } from '../../../../../application/job/inputs';
 import { ReadJobOutput } from '../../../../../application/job/outputs';
 import { IJobDbRepository } from '../../../../../application/job/usecases';
+import { JobStatus } from '../../../../../domain/enums';
 import { JobDbModel } from './models/job-db.model';
 
 @Injectable()

@@ -1,4 +1,4 @@
-export interface DeleteJobOutput {
+export class DeleteJobOutput {
   success: boolean;
   message?: string;
 }

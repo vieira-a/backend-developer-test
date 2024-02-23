@@ -1,4 +1,4 @@
-export interface PublishJobOutput {
+export class PublishJobOutput {
   success: boolean;
   message?: string;
 }

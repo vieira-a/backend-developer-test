@@ -1,7 +1,7 @@
 import { Logger, Module } from '@nestjs/common';
-import { CacheModule } from 'src/infrastructure/cache/cache.module';
 
 import { AwsModule } from '../infrastructure/aws/aws.module';
+import { CacheModule } from '../infrastructure/cache/cache.module';
 import { DataModule } from '../infrastructure/database/data.module';
 import { CompanyModule, JobModule } from '../modules';
 

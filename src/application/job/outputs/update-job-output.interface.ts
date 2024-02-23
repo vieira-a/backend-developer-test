@@ -1,4 +1,4 @@
-export interface UpdateJobOutput {
+export class UpdateJobOutput {
   success: boolean;
   message?: string;
 }

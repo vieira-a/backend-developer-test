@@ -4,6 +4,7 @@ import {
   companiesResponseMapper,
   companyResponseMapper,
 } from '../../../api/transports/company/mappers';
+import { ReadCompaniesResponse } from '../../../api/transports/company/responses';
 import {
   ReadCompaniesOutput,
   ReadCompanyOutput,
@@ -11,7 +12,9 @@ import {
 
 @Injectable()
 export class CompanyPresenter {
-  async readCompaniesResult(output: ReadCompaniesOutput[]) {
+  async readCompaniesResult(
+    output: ReadCompaniesOutput[],
+  ): Promise<ReadCompaniesResponse> {
     return {
       success: true,
       data: companiesResponseMapper(output),

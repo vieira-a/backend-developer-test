@@ -9,7 +9,7 @@ import {
   ReadJobByIdService,
 } from '../../../../application/job/services';
 import { SqsService } from '../../../../infrastructure/aws/sqs/sqs.service';
-import { DbTypeOrmRepository } from '../../../../infrastructure/database/access/repositories/job';
+import { DbTypeOrmJobRepository } from '../../../../infrastructure/database/access/repositories/job';
 import { JobDbModel } from '../../../../infrastructure/database/access/repositories/job/models';
 
 describe('PublishJobController', () => {
@@ -22,7 +22,7 @@ describe('PublishJobController', () => {
       controllers: [PublishJobController],
       providers: [
         PublishJobService,
-        DbTypeOrmRepository,
+        DbTypeOrmJobRepository,
         {
           provide: getRepositoryToken(JobDbModel),
           useValue: { archive: jest.fn() },

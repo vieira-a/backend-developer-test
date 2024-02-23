@@ -22,7 +22,7 @@ import {
 } from '../application/job/services';
 import { SqsService } from '../infrastructure/aws/sqs/sqs.service';
 import { CacheModule } from '../infrastructure/cache/cache.module';
-import { DbTypeOrmRepository } from '../infrastructure/database/access/repositories/job/db-typeorm.repository';
+import { DbTypeOrmJobRepository } from '../infrastructure/database/access/repositories/job/db-typeorm-job.repository';
 import { JobDbModel } from '../infrastructure/database/access/repositories/job/models/job-db.model';
 import { CompanyModule } from './company.module';
 
@@ -47,7 +47,7 @@ import { CompanyModule } from './company.module';
     FeedJobsService,
     SqsService,
     JobPresenter,
-    DbTypeOrmRepository,
+    DbTypeOrmJobRepository,
   ],
 })
 export class JobModule {}

@@ -1,1 +1,1 @@
-export * from './db-typeorm.repository';
+export * from './db-typeorm-job.repository';

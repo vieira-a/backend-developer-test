@@ -4,14 +4,14 @@ import { JobStatus } from '../../../domain/enums';
 import { JobEntity } from '../../../domain/job/entities';
 import { PublishJob, ValidatePublish } from '../../../domain/job/usecases';
 import { SqsService } from '../../../infrastructure/aws/sqs/sqs.service';
-import { DbTypeOrmRepository } from '../../../infrastructure/database/access/repositories/job';
+import { DbTypeOrmJobRepository } from '../../../infrastructure/database/access/repositories/job';
 import { PublishJobInput } from '../inputs';
 import { ReadJobByIdService } from './read-job-by-id.service';
 
 @Injectable()
 export class PublishJobService implements ValidatePublish, PublishJob {
   constructor(
-    private readonly _repository: DbTypeOrmRepository,
+    private readonly _repository: DbTypeOrmJobRepository,
     private readonly _readJobByIdService: ReadJobByIdService,
     private readonly _sqsService: SqsService,
   ) {}

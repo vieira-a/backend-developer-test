@@ -3,14 +3,14 @@ import { Injectable } from '@nestjs/common';
 import { JobStatus } from '../../../domain/enums';
 import { JobEntity } from '../../../domain/job/entities';
 import { ArchiveJob, ValidateArchive } from '../../../domain/job/usecases';
-import { DbTypeOrmRepository } from '../../../infrastructure/database/access/repositories/job';
+import { DbTypeOrmJobRepository } from '../../../infrastructure/database/access/repositories/job';
 import { ArchiveJobInput } from '../inputs';
 import { ReadJobByIdService } from './read-job-by-id.service';
 
 @Injectable()
 export class ArchiveJobService implements ArchiveJob, ValidateArchive {
   constructor(
-    private readonly _repository: DbTypeOrmRepository,
+    private readonly _repository: DbTypeOrmJobRepository,
     private readonly _readJobByIdService: ReadJobByIdService,
   ) {}
 

@@ -9,13 +9,13 @@ import { ReadCompanyByIdService } from '../../../../application/company/services
 import { CreateJobService } from '../../../../application/job/services';
 import { DbTypeOrmCompanyRepository } from '../../../../infrastructure/database/access/repositories/company';
 import { CompanyDbModel } from '../../../../infrastructure/database/access/repositories/company/models';
-import { DbTypeOrmRepository } from '../../../../infrastructure/database/access/repositories/job';
+import { DbTypeOrmJobRepository } from '../../../../infrastructure/database/access/repositories/job';
 import { JobDbModel } from '../../../../infrastructure/database/access/repositories/job/models';
 
 describe('CreateJobController', () => {
   let controller: CreateJobController;
   let service: CreateJobService;
-  let repository: DbTypeOrmRepository;
+  let repository: DbTypeOrmJobRepository;
 
   beforeAll(async () => {
     const app: TestingModule = await Test.createTestingModule({
@@ -27,7 +27,7 @@ describe('CreateJobController', () => {
           provide: getRepositoryToken(JobDbModel),
           useValue: { execute: jest.fn() },
         },
-        DbTypeOrmRepository,
+        DbTypeOrmJobRepository,
         {
           provide: getRepositoryToken(JobDbModel),
           useValue: { create: jest.fn() },
@@ -44,7 +44,7 @@ describe('CreateJobController', () => {
 
     controller = app.get<CreateJobController>(CreateJobController);
     service = app.get<CreateJobService>(CreateJobService);
-    repository = app.get<DbTypeOrmRepository>(DbTypeOrmRepository);
+    repository = app.get<DbTypeOrmJobRepository>(DbTypeOrmJobRepository);
   });
 
   afterEach(() => {

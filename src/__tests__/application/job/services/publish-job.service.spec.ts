@@ -7,19 +7,19 @@ import {
   ReadJobByIdService,
 } from '../../../../application/job/services';
 import { SqsService } from '../../../../infrastructure/aws/sqs/sqs.service';
-import { DbTypeOrmRepository } from '../../../../infrastructure/database/access/repositories/job';
+import { DbTypeOrmJobRepository } from '../../../../infrastructure/database/access/repositories/job';
 import { JobDbModel } from '../../../../infrastructure/database/access/repositories/job/models';
 
 describe('PublishJobService', () => {
   let service: PublishJobService;
-  let repository: DbTypeOrmRepository;
+  let repository: DbTypeOrmJobRepository;
   let readJobByIdService: ReadJobByIdService;
 
   beforeAll(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       providers: [
         PublishJobService,
-        DbTypeOrmRepository,
+        DbTypeOrmJobRepository,
         {
           provide: getRepositoryToken(JobDbModel),
           useValue: { archive: jest.fn() },
@@ -34,7 +34,7 @@ describe('PublishJobService', () => {
     }).compile();
 
     service = moduleRef.get<PublishJobService>(PublishJobService);
-    repository = moduleRef.get<DbTypeOrmRepository>(DbTypeOrmRepository);
+    repository = moduleRef.get<DbTypeOrmJobRepository>(DbTypeOrmJobRepository);
     readJobByIdService = moduleRef.get<ReadJobByIdService>(ReadJobByIdService);
   });
 

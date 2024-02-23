@@ -6,19 +6,19 @@ import {
   ArchiveJobService,
   ReadJobByIdService,
 } from '../../../../application/job/services';
-import { DbTypeOrmRepository } from '../../../../infrastructure/database/access/repositories/job';
+import { DbTypeOrmJobRepository } from '../../../../infrastructure/database/access/repositories/job';
 import { JobDbModel } from '../../../../infrastructure/database/access/repositories/job/models';
 
 describe('ArchiveJobService', () => {
   let service: ArchiveJobService;
-  let repository: DbTypeOrmRepository;
+  let repository: DbTypeOrmJobRepository;
   let readJobByIdService: ReadJobByIdService;
 
   beforeAll(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       providers: [
         ArchiveJobService,
-        DbTypeOrmRepository,
+        DbTypeOrmJobRepository,
         {
           provide: getRepositoryToken(JobDbModel),
           useValue: { archive: jest.fn() },
@@ -32,7 +32,7 @@ describe('ArchiveJobService', () => {
     }).compile();
 
     service = moduleRef.get<ArchiveJobService>(ArchiveJobService);
-    repository = moduleRef.get<DbTypeOrmRepository>(DbTypeOrmRepository);
+    repository = moduleRef.get<DbTypeOrmJobRepository>(DbTypeOrmJobRepository);
     readJobByIdService = moduleRef.get<ReadJobByIdService>(ReadJobByIdService);
   });
 

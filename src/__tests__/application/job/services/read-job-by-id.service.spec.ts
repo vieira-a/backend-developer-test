@@ -3,18 +3,18 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { jobMock } from '../../../../__mocks__/job';
 import { ReadJobByIdService } from '../../../../application/job/services';
-import { DbTypeOrmRepository } from '../../../../infrastructure/database/access/repositories/job';
+import { DbTypeOrmJobRepository } from '../../../../infrastructure/database/access/repositories/job';
 import { JobDbModel } from '../../../../infrastructure/database/access/repositories/job/models';
 
 describe('ReadJobByIdService', () => {
   let service: ReadJobByIdService;
-  let repository: DbTypeOrmRepository;
+  let repository: DbTypeOrmJobRepository;
 
   beforeAll(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       providers: [
         ReadJobByIdService,
-        DbTypeOrmRepository,
+        DbTypeOrmJobRepository,
         {
           provide: getRepositoryToken(JobDbModel),
           useValue: { readById: jest.fn() },
@@ -23,7 +23,7 @@ describe('ReadJobByIdService', () => {
     }).compile();
 
     service = moduleRef.get<ReadJobByIdService>(ReadJobByIdService);
-    repository = moduleRef.get<DbTypeOrmRepository>(DbTypeOrmRepository);
+    repository = moduleRef.get<DbTypeOrmJobRepository>(DbTypeOrmJobRepository);
   });
 
   afterEach(() => {

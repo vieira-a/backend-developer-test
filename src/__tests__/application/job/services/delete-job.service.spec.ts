@@ -6,19 +6,19 @@ import {
   DeleteJobService,
   ReadJobByIdService,
 } from '../../../../application/job/services';
-import { DbTypeOrmRepository } from '../../../../infrastructure/database/access/repositories/job';
+import { DbTypeOrmJobRepository } from '../../../../infrastructure/database/access/repositories/job';
 import { JobDbModel } from '../../../../infrastructure/database/access/repositories/job/models';
 
 describe('DeleteJobService', () => {
   let service: DeleteJobService;
   let readJobByIdService: ReadJobByIdService;
-  let repository: DbTypeOrmRepository;
+  let repository: DbTypeOrmJobRepository;
 
   beforeAll(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       providers: [
         DeleteJobService,
-        DbTypeOrmRepository,
+        DbTypeOrmJobRepository,
         {
           provide: getRepositoryToken(JobDbModel),
           useValue: { delete: jest.fn() },
@@ -32,7 +32,7 @@ describe('DeleteJobService', () => {
     }).compile();
 
     service = moduleRef.get<DeleteJobService>(DeleteJobService);
-    repository = moduleRef.get<DbTypeOrmRepository>(DbTypeOrmRepository);
+    repository = moduleRef.get<DbTypeOrmJobRepository>(DbTypeOrmJobRepository);
     readJobByIdService = moduleRef.get<ReadJobByIdService>(ReadJobByIdService);
   });
 

@@ -7,19 +7,19 @@ import { ReadCompanyByIdService } from '../../../../application/company/services
 import { CreateJobService } from '../../../../application/job/services';
 import { DbTypeOrmCompanyRepository } from '../../../../infrastructure/database/access/repositories/company';
 import { CompanyDbModel } from '../../../../infrastructure/database/access/repositories/company/models';
-import { DbTypeOrmRepository } from '../../../../infrastructure/database/access/repositories/job/db-typeorm.repository';
+import { DbTypeOrmJobRepository } from '../../../../infrastructure/database/access/repositories/job/db-typeorm-job.repository';
 import { JobDbModel } from '../../../../infrastructure/database/access/repositories/job/models/job-db.model';
 
 describe('CreateJobService', () => {
   let service: CreateJobService;
-  let repository: DbTypeOrmRepository;
+  let repository: DbTypeOrmJobRepository;
   let readCompanyByIdService: ReadCompanyByIdService;
 
   beforeAll(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       providers: [
         CreateJobService,
-        DbTypeOrmRepository,
+        DbTypeOrmJobRepository,
         {
           provide: getRepositoryToken(JobDbModel),
           useValue: { create: jest.fn() },
@@ -38,7 +38,7 @@ describe('CreateJobService', () => {
     }).compile();
 
     service = moduleRef.get<CreateJobService>(CreateJobService);
-    repository = moduleRef.get<DbTypeOrmRepository>(DbTypeOrmRepository);
+    repository = moduleRef.get<DbTypeOrmJobRepository>(DbTypeOrmJobRepository);
     readCompanyByIdService = moduleRef.get<ReadCompanyByIdService>(
       ReadCompanyByIdService,
     );

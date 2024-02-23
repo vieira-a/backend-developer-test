@@ -8,7 +8,7 @@ import {
   ArchiveJobService,
   ReadJobByIdService,
 } from '../../../../application/job/services';
-import { DbTypeOrmRepository } from '../../../../infrastructure/database/access/repositories/job';
+import { DbTypeOrmJobRepository } from '../../../../infrastructure/database/access/repositories/job';
 import { JobDbModel } from '../../../../infrastructure/database/access/repositories/job/models';
 
 describe('ArchiveJobController', () => {
@@ -21,7 +21,7 @@ describe('ArchiveJobController', () => {
       controllers: [ArchiveJobController],
       providers: [
         ArchiveJobService,
-        DbTypeOrmRepository,
+        DbTypeOrmJobRepository,
         {
           provide: getRepositoryToken(JobDbModel),
           useValue: { archive: jest.fn() },

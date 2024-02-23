@@ -6,19 +6,19 @@ import {
   ReadJobByIdService,
   UpdateJobService,
 } from '../../../../application/job/services';
-import { DbTypeOrmRepository } from '../../../../infrastructure/database/access/repositories/job';
+import { DbTypeOrmJobRepository } from '../../../../infrastructure/database/access/repositories/job';
 import { JobDbModel } from '../../../../infrastructure/database/access/repositories/job/models';
 
 describe('UpdateJobService', () => {
   let service: UpdateJobService;
-  let repository: DbTypeOrmRepository;
+  let repository: DbTypeOrmJobRepository;
   let readJobByIdService: ReadJobByIdService;
 
   beforeAll(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       providers: [
         UpdateJobService,
-        DbTypeOrmRepository,
+        DbTypeOrmJobRepository,
         {
           provide: getRepositoryToken(JobDbModel),
           useValue: { update: jest.fn() },
@@ -32,7 +32,7 @@ describe('UpdateJobService', () => {
     }).compile();
 
     service = moduleRef.get<UpdateJobService>(UpdateJobService);
-    repository = moduleRef.get<DbTypeOrmRepository>(DbTypeOrmRepository);
+    repository = moduleRef.get<DbTypeOrmJobRepository>(DbTypeOrmJobRepository);
     readJobByIdService = moduleRef.get<ReadJobByIdService>(ReadJobByIdService);
   });
 

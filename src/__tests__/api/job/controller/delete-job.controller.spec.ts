@@ -12,7 +12,7 @@ import {
 } from '../../../../application/job/services';
 import { DbTypeOrmCompanyRepository } from '../../../../infrastructure/database/access/repositories/company';
 import { CompanyDbModel } from '../../../../infrastructure/database/access/repositories/company/models';
-import { DbTypeOrmRepository } from '../../../../infrastructure/database/access/repositories/job';
+import { DbTypeOrmJobRepository } from '../../../../infrastructure/database/access/repositories/job';
 import { JobDbModel } from '../../../../infrastructure/database/access/repositories/job/models';
 
 describe('DeleteJobController', () => {
@@ -25,7 +25,7 @@ describe('DeleteJobController', () => {
       controllers: [DeleteJobController],
       providers: [
         DeleteJobService,
-        DbTypeOrmRepository,
+        DbTypeOrmJobRepository,
         {
           provide: getRepositoryToken(JobDbModel),
           useValue: { delete: jest.fn() },

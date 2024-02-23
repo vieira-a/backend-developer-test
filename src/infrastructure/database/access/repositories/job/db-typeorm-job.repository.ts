@@ -9,7 +9,7 @@ import { JobStatus } from '../../../../../domain/enums';
 import { JobDbModel } from './models/job-db.model';
 
 @Injectable()
-export class DbTypeOrmRepository implements IJobDbRepository {
+export class DbTypeOrmJobRepository implements IJobDbRepository {
   constructor(
     @InjectRepository(JobDbModel)
     private readonly _typeOrmRepository: Repository<JobDbModel>,

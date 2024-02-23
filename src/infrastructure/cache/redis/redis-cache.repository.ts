@@ -24,17 +24,14 @@ export class RedisCacheRepository implements IJobCacheRepository {
   }
 
   async feed(): Promise<string> {
-    try {
-      const key = 'jobs';
-      const cachedData = await this.client.get(key);
+    const key = 'jobs';
+    const cachedData = await this.client.get(key);
 
-      if (!cachedData) {
-        const s3Data = await this.s3Service.getFileFromS3();
-        await this.client.set(key, JSON.stringify(s3Data));
-      }
-      return cachedData;
-    } catch (error) {
-      console.log('cacheFromS3', error);
+    if (!cachedData) {
+      const s3Data = await this.s3Service.getFileFromS3();
+      this.client.set(key, JSON.stringify(s3Data));
+      return JSON.stringify(s3Data);
     }
+    return cachedData;
   }
 }

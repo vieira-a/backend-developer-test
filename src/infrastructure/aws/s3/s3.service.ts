@@ -21,7 +21,10 @@ export class S3Service {
     const command = new GetObjectCommand(params);
     const response = await this.s3Client.send(command);
 
-    return JSON.parse(await this.streamToString(response.Body as Readable));
+    const jobs = await JSON.parse(
+      await this.streamToString(response.Body as Readable),
+    );
+    return jobs;
   }
 
   private async streamToString(stream: Readable): Promise<string> {

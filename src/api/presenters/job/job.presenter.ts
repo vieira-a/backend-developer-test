@@ -4,6 +4,7 @@ import {
   ArchiveJobResponse,
   CreateJobResponse,
   DeleteJobResponse,
+  FeedJobsResponse,
   PublishJobResponse,
   ReadJobResponse,
   UpdateJobResponse,
@@ -79,6 +80,16 @@ export class JobPresenter {
     return {
       success: true,
       message: 'A publicação foi atualizada com sucesso',
+    };
+  }
+
+  async feedJobResult(output: string): Promise<FeedJobsResponse> {
+    if (!output || output.length === 0) {
+      return null;
+    }
+
+    return {
+      data: JSON.parse(output),
     };
   }
 }

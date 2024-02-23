@@ -7,10 +7,10 @@ import { CompanyPresenter } from '../../../../api/presenters/company';
 import { JobPresenter } from '../../../../api/presenters/job';
 import { ReadCompanyByIdService } from '../../../../application/company/services';
 import { CreateJobService } from '../../../../application/job/services';
-import { DbTypeOrmCompanyRepository } from '../../../../infrastructure/access/repositories/company';
-import { CompanyDbModel } from '../../../../infrastructure/access/repositories/company/models';
-import { DbTypeOrmRepository } from '../../../../infrastructure/access/repositories/job';
-import { JobDbModel } from '../../../../infrastructure/access/repositories/job/models';
+import { DbTypeOrmCompanyRepository } from '../../../../infrastructure/database/access/repositories/company';
+import { CompanyDbModel } from '../../../../infrastructure/database/access/repositories/company/models';
+import { DbTypeOrmRepository } from '../../../../infrastructure/database/access/repositories/job';
+import { JobDbModel } from '../../../../infrastructure/database/access/repositories/job/models';
 
 describe('CreateJobController', () => {
   let controller: CreateJobController;

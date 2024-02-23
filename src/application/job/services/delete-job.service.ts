@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { JobEntity } from '../../../domain/job/entities';
 import { DeleteJob, ValidateDelete } from '../../../domain/job/usecases';
-import { DbTypeOrmRepository } from '../../../infrastructure/access/repositories/job';
+import { DbTypeOrmRepository } from '../../../infrastructure/database/access/repositories/job';
 import { ReadJobByIdService } from './read-job-by-id.service';
 
 @Injectable()

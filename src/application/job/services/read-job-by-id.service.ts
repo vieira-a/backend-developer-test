@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { JobEntity } from '../../../domain/job/entities';
 import { ReadJobById } from '../../../domain/job/usecases';
-import { DbTypeOrmRepository } from '../../../infrastructure/access/repositories/job';
+import { DbTypeOrmRepository } from '../../../infrastructure/database/access/repositories/job';
 
 @Injectable()
 export class ReadJobByIdService implements ReadJobById {

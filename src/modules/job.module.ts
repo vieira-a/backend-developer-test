@@ -5,6 +5,7 @@ import {
   ArchiveJobController,
   CreateJobController,
   DeleteJobController,
+  FeedJobsController,
   PublishJobController,
   ReadJobByIdController,
   UpdateJobController,
@@ -14,17 +15,19 @@ import {
   ArchiveJobService,
   CreateJobService,
   DeleteJobService,
+  FeedJobsService,
   PublishJobService,
   ReadJobByIdService,
   UpdateJobService,
 } from '../application/job/services';
-import { DbTypeOrmRepository } from '../infrastructure/access/repositories/job/db-typeorm.repository';
-import { JobDbModel } from '../infrastructure/access/repositories/job/models/job-db.model';
 import { SqsService } from '../infrastructure/aws/sqs/sqs.service';
+import { CacheModule } from '../infrastructure/cache/cache.module';
+import { DbTypeOrmRepository } from '../infrastructure/database/access/repositories/job/db-typeorm.repository';
+import { JobDbModel } from '../infrastructure/database/access/repositories/job/models/job-db.model';
 import { CompanyModule } from './company.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([JobDbModel]), CompanyModule],
+  imports: [TypeOrmModule.forFeature([JobDbModel]), CompanyModule, CacheModule],
   controllers: [
     CreateJobController,
     ReadJobByIdController,
@@ -32,6 +35,7 @@ import { CompanyModule } from './company.module';
     ArchiveJobController,
     UpdateJobController,
     PublishJobController,
+    FeedJobsController,
   ],
   providers: [
     ArchiveJobService,
@@ -40,6 +44,7 @@ import { CompanyModule } from './company.module';
     ReadJobByIdService,
     PublishJobService,
     UpdateJobService,
+    FeedJobsService,
     SqsService,
     JobPresenter,
     DbTypeOrmRepository,

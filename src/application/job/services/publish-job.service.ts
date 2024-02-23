@@ -3,8 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { JobStatus } from '../../../domain/enums';
 import { JobEntity } from '../../../domain/job/entities';
 import { PublishJob, ValidatePublish } from '../../../domain/job/usecases';
-import { DbTypeOrmRepository } from '../../../infrastructure/access/repositories/job';
 import { SqsService } from '../../../infrastructure/aws/sqs/sqs.service';
+import { DbTypeOrmRepository } from '../../../infrastructure/database/access/repositories/job';
 import { PublishJobInput } from '../inputs';
 import { ReadJobByIdService } from './read-job-by-id.service';
 

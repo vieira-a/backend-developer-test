@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { ReadCompaniesOutput } from '../../../../application/company/outputs';
-import { CompanyDbRepository } from '../../../../application/company/usecases';
+import { ReadCompaniesOutput } from '../../../../../application/company/outputs';
+import { CompanyDbRepository } from '../../../../../application/company/usecases';
 import { CompanyDbModel } from './models';
 
 @Injectable()

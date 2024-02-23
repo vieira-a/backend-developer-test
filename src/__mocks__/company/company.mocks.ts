@@ -1,4 +1,4 @@
-import { CompanyDbModel } from '../../infrastructure/access/repositories/company/models';
+import { CompanyDbModel } from '../../infrastructure/database/access/repositories/company/models';
 
 export const companiesMock: CompanyDbModel[] = [
   {

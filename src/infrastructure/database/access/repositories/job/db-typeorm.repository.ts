@@ -4,8 +4,8 @@ import { UpdateJobInput } from 'src/application/job/inputs';
 import { JobStatus } from 'src/domain/enums';
 import { DeleteResult, Repository } from 'typeorm';
 
-import { ReadJobOutput } from '../../../../application/job/outputs';
-import { IJobDbRepository } from '../../../../application/job/usecases';
+import { ReadJobOutput } from '../../../../../application/job/outputs';
+import { IJobDbRepository } from '../../../../../application/job/usecases';
 import { JobDbModel } from './models/job-db.model';
 
 @Injectable()

@@ -43,7 +43,7 @@ Please, access the [backlog](https://trello.com/invite/b/W8FrIRWw/ATTI1cf92d5254
 - List all companies
 - Search company by ID
 
-**Testes unitários**
+**Unit tests**
 
 Unit tests were applied to the application (services) and presentation (controllers) layers.
 
